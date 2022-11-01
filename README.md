@@ -7,9 +7,9 @@
 </p>
 
 ## Related Repository
+
 - [Frontend Repo](https://github.com/jovianjr/paw-fe) (current)
 - [Backend Repo](https://github.com/jovianjr/paw-be)
-
 
 ## Description
 
@@ -19,40 +19,47 @@ PAW merupakan salah satu website online exhibitions untuk menampilkan berbagai k
 </p>
 
 ## Directories
+
     .
     ├── public                # static files (public can access)
-    └── src                    
+    └── src
         ├── assets              # assets
         ├── utils               # utilities
-        ├── views              
+        ├── views
         │   |                   # all about UI
-        │   ├── components      # collection of UI components 
+        │   ├── components      # collection of UI components
         │   ├── layouts         # UI Layout
         │   ├── pages           # pages
         │   └── styles          # css files
-        ├── app.jsx           
-        └── main.jsx         
-
-
-
+        ├── app.jsx
+        └── main.jsx
 
 ## How to use
+
 ### npm
+
 ```bash
 npm install
 npm run dev
 ```
+
 ### yarn
+
 ```bash
 yarn
 yarn dev
 ```
 
+## Contributing
+
+Please see our [contributing.md](https://github.com/jovianjr/paw-fe/blob/dev/CONTRIBUTING.md).
+
 ## Anggota Kelompok 7
-Nama  | NIM
-------------- | -------------
-Alphonsus Jovian Joy Reynaldo   | 20/460539/TK/51128
-Adinda Luthfiah S               | 20/463587/TK/51579
-Aulia Nur Fajriyah              | 20/456360/TK/50490
-Siti malatania                  | 20/456380/TK/50510
-Wardatul Radhiyyah              | 20/456381/TK/50511
+
+| Nama                          | NIM                |
+| ----------------------------- | ------------------ |
+| Alphonsus Jovian Joy Reynaldo | 20/460539/TK/51128 |
+| Adinda Luthfiah S             | 20/463587/TK/51579 |
+| Aulia Nur Fajriyah            | 20/456360/TK/50490 |
+| Siti malatania                | 20/456380/TK/50510 |
+| Wardatul Radhiyyah            | 20/456381/TK/50511 |
