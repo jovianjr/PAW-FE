@@ -17,40 +17,42 @@ import { useMemo } from 'react';
  * @param {ButtonProps} props
  */
 const Button = ({
-	children = null,
-	className = '',
-	variant = 'primary',
-	startIcon = null,
-	endIcon = null,
-	href = null,
-	disabled = false,
-	onClick = () => {},
+    children = null,
+    className = '',
+    variant = 'primary',
+    type = 'button',
+    startIcon = null,
+    endIcon = null,
+    href = null,
+    disabled = false,
+    onClick = () => {}
 }) => {
-	const StartIcon = startIcon;
-	const EndIcon = endIcon;
+    const StartIcon = startIcon;
+    const EndIcon = endIcon;
 
-	const Element = useMemo(() => (href ? 'a' : 'button'), [href]);
+    const Element = useMemo(() => (href ? 'a' : 'button'), [href]);
 
-	return (
-		<Element
-			className={clsx(
-				'rounded border border-transparent py-2 px-3 text-sm font-medium transition-all',
-				variant === 'primary' &&
-					'bg-purple-700 text-white hover:border-purple-700 hover:bg-white hover:text-purple-700',
-				variant === 'secondary' &&
-					'bg-slate-200 text-purple-700 hover:border-purple-700 hover:bg-purple-700 hover:text-white',
-				'disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white',
-				className
-			)}
-			disabled={disabled}
-			onClick={onClick}
-			href={href}
-		>
-			{startIcon ? <StartIcon className="mr-2 w-4" /> : null}
-			{children}
-			{endIcon ? <EndIcon className="ml-2 w-4" /> : null}
-		</Element>
-	);
+    return (
+        <Element
+            type={type}
+            className={clsx(
+                'rounded border border-transparent py-2 px-3 text-sm font-medium transition-all',
+                variant === 'primary' &&
+                    'bg-purple-700 text-white hover:border-purple-700 hover:bg-white hover:text-purple-700',
+                variant === 'secondary' &&
+                    'bg-slate-200 text-purple-700 hover:border-purple-700 hover:bg-purple-700 hover:text-white',
+                'disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white',
+                className
+            )}
+            disabled={disabled}
+            onClick={onClick}
+            href={href}
+        >
+            {startIcon ? <StartIcon className="mr-2 w-4" /> : null}
+            {children}
+            {endIcon ? <EndIcon className="ml-2 w-4" /> : null}
+        </Element>
+    );
 };
 
 export default Button;
