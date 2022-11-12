@@ -10,6 +10,7 @@ import Activate from '@/views/pages/auth/activate';
 import UserPage from '@/views/pages/user';
 import ArtDetailPage from '@/views/pages/art/detail';
 import ArtNewPage from '@/views/pages/art/new';
+import SearchPage from '@/views/pages/search';
 
 const AuthRoutes = [
     {
@@ -57,6 +58,14 @@ const routes = createBrowserRouter([
     {
         path: '/art/:id',
         element: <ArtDetailPage />
+    },
+    {
+        path: '/search',
+        element: <SearchPage />
+    },
+    {
+        path: '/search/:keyword',
+        element: <SearchPage />
     }
 ]);
 
