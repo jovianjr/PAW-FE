@@ -35,7 +35,8 @@ const TextField = ({
     type = 'text',
     icon = null,
     disabled = false,
-    resetField = null
+    resetField = null,
+    action = null
 }) => {
     const Icon = icon;
 
@@ -63,7 +64,9 @@ const TextField = ({
         <div className={clsx('', className)}>
             <Label />
             <div className="relative w-full">
-                {icon && <Icon className="h-4 w-4 text-slate-900" />}
+                {icon && (
+                    <Icon className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-slate-900" />
+                )}
                 <input
                     type={type}
                     placeholder={placeholder}
@@ -91,12 +94,14 @@ const TextField = ({
                         {fieldName ?? name} is required
                     </p>
                 </RenderIf>
-                <RenderIf when={field.value && resetField}>
-                    <div
-                        className="absolute top-1/2 right-0 flex -translate-y-1/2 pr-4"
-                        onClick={() => resetField(name)}
-                    >
-                        <XMarkIcon className="h-4 w-4 cursor-pointer text-neutral-800" />
+                <RenderIf when={field.value && (resetField || action)}>
+                    <div className="absolute top-1/2 right-0 flex -translate-y-1/2 items-center gap-2 pr-4">
+                        <RenderIf when={action}>{action}</RenderIf>
+                        <RenderIf when={resetField}>
+                            <div onClick={() => resetField(name)}>
+                                <XMarkIcon className="h-4 w-4 cursor-pointer text-neutral-800" />
+                            </div>
+                        </RenderIf>
                     </div>
                 </RenderIf>
             </div>
