@@ -36,9 +36,11 @@ const TextField = ({
     icon = null,
     disabled = false,
     resetField = null,
-    action = null
+    action = null,
+    textarea = false
 }) => {
     const Icon = icon;
+    const Tag = textarea ? 'textarea' : 'input';
 
     const { field, fieldState } = useController({
         control,
@@ -67,13 +69,13 @@ const TextField = ({
                 {icon && (
                     <Icon className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-slate-900" />
                 )}
-                <input
+                <Tag
                     type={type}
                     placeholder={placeholder}
                     className={clsx(
                         'w-full rounded-lg border border-slate-300 bg-slate-100 py-3 px-4 text-slate-900 placeholder:font-light placeholder:text-slate-400 focus:outline-slate-400',
                         fieldState.error &&
-                            '!border-2 !border-red-500 !text-red-500 focus:!outline-red-500',
+                            '!border-red-500 !text-red-500 focus:!outline-red-500',
                         Icon && 'pl-10',
                         inputClassName
                     )}
@@ -82,6 +84,7 @@ const TextField = ({
                     value={field.value}
                     onChange={e => field.onChange(e)}
                     onClick={type === 'date' ? showPicker : undefined}
+                    required={type === 'date' ? rules.required : false}
                     disabled={disabled}
                 />
                 <RenderIf
