@@ -17,7 +17,7 @@ const ErrorBoundary = () => {
                 />
             ) : (
                 <StatusResult
-                    title="Sorry, an unexpected error has occurred"
+                    title="An error has occurred"
                     detail={error.statusText || error.message}
                 />
             )}
