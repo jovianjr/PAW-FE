@@ -7,7 +7,8 @@ import SignUpPage from '@/views/pages/auth/signup';
 import ForgotPasswordPage from '@/views/pages/auth/forgot-password';
 import ResetPasswordPage from '@/views/pages/auth/reset-password';
 import Activate from '@/views/pages/auth/activate';
-import UserPage from '@/views/pages/user';
+import ProfilePage from '@/views/pages/profile';
+import ProfileSettingsPage from '@/views/pages/profile/settings';
 import ArtDetailPage from '@/views/pages/art/detail';
 import ArtNewPage from '@/views/pages/art/new';
 import SearchPage from '@/views/pages/search';
@@ -44,7 +45,11 @@ const routes = createBrowserRouter([
     },
     {
         path: '/:id',
-        element: <UserPage />
+        element: <ProfilePage />
+    },
+    {
+        path: '/profile/settings',
+        element: <ProfileSettingsPage />
     },
     {
         path: '/art',
