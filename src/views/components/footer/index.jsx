@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
     return (
-        <footer className="sticky bottom-0 bg-white p-4 shadow md:px-0 md:py-2">
+        <footer className="sticky bottom-0 w-full bg-white p-4 shadow md:px-0 md:py-2">
             <hr className="my-2 border-gray-200/70 dark:border-2 sm:mx-auto"></hr>
             <div className="flex w-full items-center justify-between gap-8 px-4">
                 <Link to="/" className="pt-0 font-semibold">
@@ -59,7 +59,7 @@ const Footer = () => {
                     </a>
                 </div>
                 <div className="w-1/5">
-                    <ul className="mb-6 flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 sm:mb-0">
+                    <ul className="mb-6 hidden items-center gap-4 text-sm text-gray-500 dark:text-gray-400 sm:mb-0 lg:flex">
                         <li>
                             <Link to="/" className="hover:underline">
                                 Homepage

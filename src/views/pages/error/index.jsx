@@ -6,7 +6,7 @@ const ErrorBoundary = () => {
     let error = useRouteError();
     return (
         <MainLayout>
-            {error.status === 408 ? (
+            {error.status === 404 ? (
                 <StatusResult
                     type="warning"
                     title="404"
@@ -17,7 +17,7 @@ const ErrorBoundary = () => {
                 />
             ) : (
                 <StatusResult
-                    title="Sorry, an unexpected error has occurred"
+                    title="An error has occurred"
                     detail={error.statusText || error.message}
                 />
             )}
