@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
 
 /**
  * @typedef ButtonProps
@@ -30,7 +31,7 @@ const Button = ({
     const StartIcon = startIcon;
     const EndIcon = endIcon;
 
-    const Element = useMemo(() => (href ? 'a' : 'button'), [href]);
+    const Element = useMemo(() => (href ? Link : 'button'), [href]);
 
     return (
         <Element
@@ -46,7 +47,7 @@ const Button = ({
             )}
             disabled={disabled}
             onClick={onClick}
-            href={href}
+            to={href}
         >
             {startIcon ? <StartIcon className="mr-2 w-4" /> : null}
             {children}

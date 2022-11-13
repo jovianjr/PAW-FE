@@ -1,0 +1,41 @@
+input[type='date']:before {
+    content: attr(placeholder) !important;
+    @apply !text-base !font-normal text-slate-400;
+}
+
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.react-select__placeholder {
+    @apply !text-sm !text-slate-400 lg:!text-base;
+}
+
+.react-select__single-value {
+    @apply !text-sm !text-slate-900 lg:!text-base;
+}
+
+.react-select__option {
+    @apply !text-slate-900 hover:bg-purple-100 active:!bg-purple-200;
+}
+
+.react-select__option--is-selected {
+    @apply !bg-purple-500 !text-white;
+}
+
+.react-select__control {
+    @apply !border-x-0 !border-t-0 !border-b-2 !border-slate-300 !bg-white py-1 px-1 !ring-0 placeholder:!bg-blue-500 valid:!border-b-0;
+}
+
+.react-select__multi-value {
+    @apply rounded !bg-purple-200 py-0.5 px-2 !text-base !text-slate-900;
+}
