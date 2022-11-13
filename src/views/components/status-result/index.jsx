@@ -71,7 +71,7 @@ const StatusResult = ({
                     >
                         <Icon.element
                             className={clsx(
-                                'aspect-square w-40',
+                                'aspect-square w-40 md:w-[120px]',
                                 Icon.color,
                                 iconClassName
                             )}
@@ -81,7 +81,7 @@ const StatusResult = ({
                 <RenderIf when={title}>
                     <h1
                         className={clsx(
-                            'text-3xl font-semibold',
+                            'text-center text-xl font-semibold lg:text-3xl',
                             titleClassName
                         )}
                     >

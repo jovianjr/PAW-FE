@@ -6,13 +6,14 @@ const ErrorBoundary = () => {
     let error = useRouteError();
     return (
         <MainLayout>
-            {error.status === 404 ? (
+            {error.status === 408 ? (
                 <StatusResult
                     type="warning"
                     title="404"
                     detail="Page not found"
-                    titleClassName="text-[64px]"
-                    detailClassName="text-[24px]"
+                    titleClassName="text-[40px] lg:text-[64px]"
+                    detailClassName="text-[20px] lg:text-[24px]"
+                    iconClassName="w-[120px] lg:w-[200px]"
                 />
             ) : (
                 <StatusResult
