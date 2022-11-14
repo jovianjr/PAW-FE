@@ -1,26 +1,23 @@
 import MainLayout from '@/views/layouts/main-layout';
 import { Tab } from '@headlessui/react';
 import clsx from 'clsx';
-import cardList from '@/views/pages/search/data';
 import ListArts from '@/views/pages/search/list-arts';
 import ListUsers from '@/views/pages/search/list-users';
 
 const tabItems = [
     {
         tabName: 'Arts',
-        data: cardList,
         element: ListArts
     },
     {
         tabName: 'Users',
-        data: cardList,
         element: ListUsers
     }
 ];
 
 const Search = () => {
     return (
-        <MainLayout className="pb-20">
+        <MainLayout className="min-h-screen pb-20">
             <Tab.Group>
                 <Tab.List className="w-full space-x-8 pt-10 pb-5 text-center text-[14px] font-semibold">
                     {tabItems?.map((val, index) => (
@@ -46,7 +43,7 @@ const Search = () => {
                     {tabItems?.map((item, index) => {
                         return (
                             <Tab.Panel key={index}>
-                                <item.element data={item.data} />
+                                <item.element />
                             </Tab.Panel>
                         );
                     })}
