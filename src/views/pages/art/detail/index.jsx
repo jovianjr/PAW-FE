@@ -1,6 +1,7 @@
 import React from 'react';
-import MainLayout from '@/views/layouts/main-layout';
 import { Link } from 'react-router-dom';
+
+import MainLayout from '@/views/layouts/main-layout';
 
 const ArtDetail = () => {
     return (
