@@ -20,7 +20,7 @@ const tabItems = [
 
 const Search = () => {
     return (
-        <MainLayout className="pb-20">
+        <MainLayout className="min-h-screen pb-20">
             <Tab.Group>
                 <Tab.List className="w-full space-x-8 pt-10 pb-5 text-center text-[14px] font-semibold">
                     {tabItems?.map((val, index) => (
