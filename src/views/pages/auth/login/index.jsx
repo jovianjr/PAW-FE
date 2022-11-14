@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 import Button from '@/views/elements/button';
 import TextField from '@/views/elements/text-field';
@@ -41,21 +42,24 @@ const Login = () => {
                         type="password"
                         rules={{ required: true }}
                     />
-                    <a
-                        href="/forgot-password"
+                    <Link
+                        to="/forgot-password"
                         className="text-sm text-purple-700"
                     >
                         Forgot password?
-                    </a>
+                    </Link>
                 </div>
             </div>
 
             <div className="flex w-full items-center justify-between">
                 <p className="text-sm">
                     Don’t have any account?{' '}
-                    <a href="/signup" className="font-semibold text-purple-700">
+                    <Link
+                        to="/signup"
+                        className="font-semibold text-purple-700"
+                    >
                         Sign Up
-                    </a>
+                    </Link>
                 </p>
                 <Button type="submit">Login</Button>
             </div>

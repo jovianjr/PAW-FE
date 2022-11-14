@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 import Button from '@/views/elements/button';
 import TextField from '@/views/elements/text-field';
@@ -65,9 +66,9 @@ const SignUp = () => {
             <div className="flex w-full items-center justify-between">
                 <p className="text-sm">
                     Already have an account?{' '}
-                    <a href="/login" className="font-semibold text-purple-700">
+                    <Link to="/login" className="font-semibold text-purple-700">
                         Login
-                    </a>
+                    </Link>
                 </p>
                 <Button type="submit">Sign Up</Button>
             </div>
