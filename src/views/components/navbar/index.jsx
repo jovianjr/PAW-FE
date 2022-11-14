@@ -87,7 +87,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-slate-300 py-4 px-6">
+        <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-slate-300 bg-white py-4 px-6">
             <Link to="/">
                 <h1 className="text-base font-black lg:text-lg">PAW</h1>
             </Link>
