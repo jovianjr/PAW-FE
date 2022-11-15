@@ -18,7 +18,6 @@ api.interceptors.response.use(
         return Promise.resolve(res);
     },
     err => {
-        console.log(err);
         return Promise.reject(err);
     }
 );

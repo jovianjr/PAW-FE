@@ -15,8 +15,11 @@ const SessionManager = ({}) => {
             auth.login(res.data);
         },
         onError: err => {
-            console.log(err.response?.data?.message);
             auth.logout();
+        },
+        retry: (failureCount, error) => {
+            if (error?.response?.status === 401) return false;
+            else return true;
         }
     });
 
