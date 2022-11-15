@@ -1,19 +1,23 @@
-import clsx from 'clsx';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Transition } from '@headlessui/react';
 import { CloudArrowUpIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { useMutation } from '@tanstack/react-query';
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 import RenderIf from '@/views/components/render-if';
 
+import { SpinIcon } from '@/views/elements/icons';
 import TextField from '@/views/elements/text-field';
 import Button from '@/views/elements/button';
 import Select from '@/views/elements/select';
 
 import MainLayout from '@/views/layouts/main-layout';
 import genreOptions from '@/utils/constants/options/genre';
+import { uploadFile } from '@/utils/services/artwork';
 
 const ArtNew = () => {
-    const [image, setImage] = useState('https://picsum.photos/800/600');
+    const [image, setImage] = useState();
     const {
         control,
         handleSubmit,
@@ -26,8 +30,20 @@ const ArtNew = () => {
         }
     });
 
-    const onSubmit = () => {
-        alert('submitted');
+    const imageUploadMutation = useMutation(data => uploadFile(data), {
+        onSuccess: res => {
+            setImage(res.url);
+        },
+        onError: err => {
+            if (err.response) {
+                const { data } = err.response;
+                announce.error(data.errors);
+            } else console.log(err);
+        }
+    });
+
+    const onSubmit = data => {
+        imageUploadMutation.mutateAsync(data);
     };
 
     return (
@@ -41,8 +57,30 @@ const ArtNew = () => {
                 className="flex h-full w-full flex-col items-center justify-center"
             >
                 <div className="flex h-full w-full flex-col items-center gap-14 lg:w-max lg:flex-row">
-                    <div className="relative flex aspect-square w-full gap-4 rounded bg-slate-200 lg:h-[50vh]">
-                        <RenderIf when={!!image}>
+                    <div className="relative flex aspect-square w-full gap-4 rounded border border-slate-300 bg-slate-200 lg:h-[50vh]">
+                        <Transition
+                            show={
+                                !!imageUploadMutation.isLoading ||
+                                !!imageUploadMutation.isFetching
+                            }
+                            enter="transition-opacity duration-300"
+                            enterFrom="opacity-0"
+                            enterTo="opacity-100"
+                            leave="transition-opacity duration-500"
+                            leaveFrom="opacity-100"
+                            leaveTo="opacity-0"
+                            className="absolute flex h-full w-full flex-col items-center justify-center gap-2 bg-white/75"
+                        >
+                            <SpinIcon className="h-8 w-8 animate-[loading-spin_1s_cubic-bezier(0.46,0.03,0.52,0.96)_infinite] lg:h-16 lg:w-16" />
+                            <p className="text-xs font-medium">Uploading</p>
+                        </Transition>
+                        <RenderIf
+                            when={
+                                !!image &&
+                                !imageUploadMutation.isLoading &&
+                                !imageUploadMutation.isFetching
+                            }
+                        >
                             <div className="flex aspect-square h-full w-full items-center justify-center">
                                 <img
                                     src={image}
@@ -56,12 +94,27 @@ const ArtNew = () => {
                                 <TrashIcon />
                             </div>
                         </RenderIf>
-                        <RenderIf when={!image}>
-                            <div
-                                className="relative flex aspect-square h-full w-full cursor-pointer flex-col items-center justify-center transition-all hover:bg-slate-300"
-                                onClick={() =>
-                                    setImage('https://picsum.photos/800/600')
+                        <RenderIf
+                            when={
+                                !image &&
+                                !imageUploadMutation.isLoading &&
+                                !imageUploadMutation.isFetching
+                            }
+                        >
+                            <input
+                                className="hidden"
+                                name="photo"
+                                id="upload-photo"
+                                type="file"
+                                onChange={e =>
+                                    imageUploadMutation.mutateAsync(
+                                        e.target.files[0]
+                                    )
                                 }
+                            ></input>
+                            <label
+                                htmlFor="upload-photo"
+                                className="relative flex aspect-square h-full w-full cursor-pointer flex-col items-center justify-center transition-all hover:bg-slate-300"
                             >
                                 <CloudArrowUpIcon className="h-8 w-8 lg:h-10 lg:w-10" />
                                 <span className="text-sm font-semibold lg:text-base">
@@ -71,7 +124,7 @@ const ArtNew = () => {
                                     We recommend using high quality .jpg less
                                     than 10MB
                                 </p>
-                            </div>
+                            </label>
                         </RenderIf>
                     </div>
                     <div className="flex h-full w-full flex-col justify-between gap-4 lg:h-[50vh]">

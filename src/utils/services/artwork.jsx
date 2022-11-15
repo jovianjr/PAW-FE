@@ -1,0 +1,22 @@
+import axios from '@/utils/helpers/axios';
+
+const newArtwork = async image => {
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('upload_preset', 'pawpaw7');
+    formData.append('cloud_name', 'df2gq53vg');
+
+    const { data } = await axios({
+        method: 'post',
+        url: 'https://api.cloudinary.com/v1_1/df2gq53vg/image/upload',
+        data: formData,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: null
+        }
+    });
+
+    return data;
+};
+
+export { newArtwork };
