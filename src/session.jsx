@@ -19,6 +19,7 @@ const SessionManager = ({}) => {
         },
         retry: (failureCount, error) => {
             if (error?.response?.status === 401) return false;
+            else if (failureCount === 2) return false;
             else return true;
         }
     });

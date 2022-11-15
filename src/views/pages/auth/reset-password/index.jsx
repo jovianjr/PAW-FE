@@ -24,7 +24,7 @@ const ResetPassword = () => {
         }
     });
 
-    const { data, isLoading, isFetching, isError } = useQuery(
+    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
         ['reset-password-check'],
         () => resetPasswordCheck(searchParams.get('token')),
         {
@@ -34,6 +34,7 @@ const ResetPassword = () => {
             onError: err => {},
             retry: (failureCount, error) => {
                 if (error?.response?.status === 498) return false;
+                else if (failureCount === 2) return false;
                 else return true;
             }
         }
@@ -103,35 +104,44 @@ const ResetPassword = () => {
                     />
                 </MainLayout>
             </RenderIf>
-            <AuthLayout onSubmit={handleSubmit(onSubmit)}>
-                <h1 className="w-full text-center text-xl font-semibold lg:text-2xl">
-                    Change password for @{data?.data?.username}
-                </h1>
-                <div className="flex w-full flex-col gap-4">
-                    <TextField
-                        control={control}
-                        className="w-full"
-                        name="password"
-                        fieldName="Password"
-                        placeholder="Password"
-                        type="password"
-                        rules={{ required: true }}
-                    />
-                    <TextField
-                        control={control}
-                        className="w-full"
-                        name="confirmPassword"
-                        fieldName="Confirm Password"
-                        placeholder="Confirm Password"
-                        type="password"
-                        rules={{ required: true }}
-                    />
-                </div>
+            <RenderIf
+                when={
+                    resetPasswordMutation.isIdle &&
+                    !isError &&
+                    !resetPasswordMutation.isSuccess &&
+                    !resetPasswordMutation.isError
+                }
+            >
+                <AuthLayout onSubmit={handleSubmit(onSubmit)}>
+                    <h1 className="w-full text-center text-xl font-semibold lg:text-2xl">
+                        Change password for @{data?.data?.username}
+                    </h1>
+                    <div className="flex w-full flex-col gap-4">
+                        <TextField
+                            control={control}
+                            className="w-full"
+                            name="password"
+                            fieldName="Password"
+                            placeholder="Password"
+                            type="password"
+                            rules={{ required: true }}
+                        />
+                        <TextField
+                            control={control}
+                            className="w-full"
+                            name="confirmPassword"
+                            fieldName="Confirm Password"
+                            placeholder="Confirm Password"
+                            type="password"
+                            rules={{ required: true }}
+                        />
+                    </div>
 
-                <Button className="w-full" type="submit">
-                    Change password
-                </Button>
-            </AuthLayout>
+                    <Button className="w-full" type="submit">
+                        Change password
+                    </Button>
+                </AuthLayout>
+            </RenderIf>
         </>
     );
 };
