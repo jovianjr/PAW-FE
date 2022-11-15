@@ -9,6 +9,18 @@ const login = async ({ identity, password }) => {
     return data;
 };
 
+const signUp = async ({ username, email, password, confirmPassword, name }) => {
+    const { data } = await axios.post('/auth/register', {
+        username: username,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        name: name
+    });
+
+    return data;
+};
+
 const forgotPassword = async email => {
     const { data } = await axios.post('/auth/forgot-password', {
         email: email
@@ -32,4 +44,4 @@ const resetPasswordCheck = async token => {
     return data;
 };
 
-export { login, forgotPassword, resetPassword, resetPasswordCheck };
+export { login, signUp, forgotPassword, resetPassword, resetPasswordCheck };

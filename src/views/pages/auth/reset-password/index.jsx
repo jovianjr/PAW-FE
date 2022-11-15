@@ -30,9 +30,7 @@ const ResetPassword = () => {
         {
             refetchOnWindowFocus: false,
             refetchInterval: false,
-            onSuccess: res => {
-                console.log('session', res.data);
-            },
+            onSuccess: res => {},
             onError: err => {},
             retry: (failureCount, error) => {
                 if (error?.response?.status === 498) return false;
