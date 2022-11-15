@@ -3,12 +3,13 @@ import { Transition } from '@headlessui/react';
 /**
  * @typedef LoadingProps
  * @property {boolean} [when]
+ * @property {string} [text]
  */
 
 /**
  * @param {LoadingProps} props
  */
-const Loading = ({ when = false }) => {
+const Loading = ({ when = false, text = 'Loading' }) => {
     return (
         <Transition
             show={when}
@@ -27,7 +28,7 @@ const Loading = ({ when = false }) => {
                     className="aspect-square w-20 animate-[loading-spin_1.25s_cubic-bezier(0,0,0.2,1)_infinite] lg:w-40"
                 />
                 <p className="animate-pulse text-sm font-bold text-black lg:text-base">
-                    Loading
+                    {text}
                 </p>
             </div>
         </Transition>

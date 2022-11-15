@@ -1,6 +1,6 @@
 import axios from '@/utils/helpers/axios';
 
-const newArtwork = async image => {
+const uploadFile = async image => {
     const formData = new FormData();
     formData.append('file', image);
     formData.append('upload_preset', 'pawpaw7');
@@ -19,4 +19,24 @@ const newArtwork = async image => {
     return data;
 };
 
-export { newArtwork };
+const newArtwork = async ({
+    title,
+    description,
+    artist,
+    dateCreated,
+    image,
+    genre
+}) => {
+    const { data } = await axios.post('/artwork/', {
+        title: title,
+        description: description,
+        artist: artist,
+        date_created: dateCreated,
+        imgSrc: image,
+        genre: genre
+    });
+
+    return data;
+};
+
+export { uploadFile, newArtwork };
