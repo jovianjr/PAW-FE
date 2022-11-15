@@ -70,3 +70,16 @@
 * {
     @apply font-poppin text-slate-900;
 }
+
+.ReactQueryDevtools * {
+    @apply !text-white;
+}
+
+@keyframes loading-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
