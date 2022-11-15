@@ -13,7 +13,9 @@ import Dropdown from '@/views/components/dropdown';
 import RenderIf from '@/views/components/render-if';
 import Button from '@/views/elements/button';
 import TextField from '@/views/elements/text-field';
+
 import { AuthContext } from '@/utils/context/auth';
+import jwt from '@/utils/services/jwt';
 
 import {
     menuOptions,
@@ -47,6 +49,7 @@ const Navbar = () => {
     };
 
     const logoutHandler = () => {
+        jwt.remove();
         logout();
         navigate('/');
     };
@@ -102,7 +105,10 @@ const Navbar = () => {
                     >
                         <img
                             src={
-                                user.image ?? '/images/profile-placeholder.png'
+                                user
+                                    ? user.image ??
+                                      '/images/profile-placeholder.png'
+                                    : '/images/profile-placeholder.png'
                             }
                             className="aspect-square w-8 rounded-full border border-slate-300 object-cover"
                         />
