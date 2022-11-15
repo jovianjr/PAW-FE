@@ -116,12 +116,14 @@ const Navbar = () => {
                 </div>
             </RenderIf>
             <div className="absolute right-0 top-0 flex h-full items-center gap-4 lg:hidden">
-                <Link
-                    to="/art/new"
-                    className="text-sm font-semibold hover:underline"
-                >
-                    Create
-                </Link>
+                <RenderIf when={!!user}>
+                    <Link
+                        to="/art/new"
+                        className="text-sm font-semibold hover:underline"
+                    >
+                        Create
+                    </Link>
+                </RenderIf>
                 <Dropdown
                     overlay
                     panelClassName="w-screen px-2 py-2"
