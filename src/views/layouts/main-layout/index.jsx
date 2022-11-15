@@ -11,11 +11,15 @@ import Footer from '@/views/components/footer';
 /**
  * @param {MainLayoutProps} props
  */
-const MainLayout = ({ children = null, className = '' }) => {
+const MainLayout = ({ children = null, className = '', screen = false }) => {
     return (
-        <div>
+        <div className={clsx(screen ? 'flex h-screen w-screen flex-col' : '')}>
             <Navbar />
-            <main className={clsx('min-h-[50vh]', className)}>{children}</main>
+            <main
+                className={clsx(screen ? 'h-full' : 'min-h-[50vh]', className)}
+            >
+                {children}
+            </main>
             <Footer />
         </div>
     );

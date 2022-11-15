@@ -22,7 +22,7 @@ const SignUp = () => {
 
     return (
         <AuthLayout onSubmit={handleSubmit(onSubmit)}>
-            <h1 className="w-full text-center text-2xl font-semibold">
+            <h1 className="w-full text-center text-xl font-semibold lg:text-2xl">
                 CREATE ACCOUNT
             </h1>
             <div className="flex w-full flex-col gap-4">
@@ -64,7 +64,7 @@ const SignUp = () => {
             </div>
 
             <div className="flex w-full items-center justify-between">
-                <p className="text-sm">
+                <p className="text-xs lg:text-sm">
                     Already have an account?{' '}
                     <Link to="/login" className="font-semibold text-purple-700">
                         Login

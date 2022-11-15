@@ -45,8 +45,8 @@ const Login = () => {
         <>
             <LoadingScreen when={loginMutation.isLoading} />
             <AuthLayout onSubmit={handleSubmit(onSubmit)}>
-                <h1 className="w-full text-center text-2xl font-semibold">
-                    Reset your password
+                <h1 className="w-full text-center text-xl font-semibold lg:text-2xl">
+                    Welcome back!
                 </h1>
                 <div className="flex w-full flex-col gap-4">
                     <TextField
@@ -69,7 +69,7 @@ const Login = () => {
                         />
                         <Link
                             to="/forgot-password"
-                            className="text-sm text-purple-700"
+                            className="text-xs text-purple-700 lg:text-sm"
                         >
                             Forgot password?
                         </Link>
@@ -77,7 +77,7 @@ const Login = () => {
                 </div>
 
                 <div className="flex w-full items-center justify-between">
-                    <p className="text-sm">
+                    <p className="text-xs lg:text-sm">
                         Don’t have any account?{' '}
                         <Link
                             to="/signup"
