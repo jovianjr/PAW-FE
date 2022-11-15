@@ -1,6 +1,6 @@
 input[type='date']:before {
     content: attr(placeholder) !important;
-    @apply !text-base !font-normal text-slate-400;
+    @apply !text-sm !font-normal text-slate-400 lg:!text-base;
 }
 
 /* Change Autocomplete styles in Chrome*/
@@ -25,7 +25,7 @@ select:-webkit-autofill:focus {
 }
 
 .react-select__option {
-    @apply !text-slate-900 hover:bg-purple-100 active:!bg-purple-200;
+    @apply !text-sm !text-slate-900 hover:bg-purple-100 active:!bg-purple-200 lg:!text-base;
 }
 
 .react-select__option--is-selected {
@@ -37,5 +37,5 @@ select:-webkit-autofill:focus {
 }
 
 .react-select__multi-value {
-    @apply rounded !bg-purple-200 py-0.5 px-2 !text-base !text-slate-900;
+    @apply rounded !bg-purple-200 py-0.5 px-2 !text-sm !text-slate-900 lg:!text-base;
 }

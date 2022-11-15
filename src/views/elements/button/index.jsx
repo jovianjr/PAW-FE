@@ -37,7 +37,7 @@ const Button = ({
         <Element
             type={type}
             className={clsx(
-                'rounded border border-transparent py-2 px-3 text-sm font-medium transition-all',
+                'rounded border border-transparent py-2 px-3 text-xs font-medium transition-all lg:text-sm',
                 variant === 'primary' &&
                     'bg-purple-700 text-white hover:border-purple-700 hover:bg-white hover:text-purple-700',
                 variant === 'secondary' &&

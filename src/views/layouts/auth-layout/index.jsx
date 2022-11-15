@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import MainLayout from '@/views/layouts/main-layout';
 
 /**
  * @typedef AuthLayoutProps
@@ -17,22 +18,23 @@ const AuthLayout = ({
     onSubmit = () => {}
 }) => {
     return (
-        <section
+        <MainLayout
+            screen
             className={clsx(
-                'flex h-screen w-screen items-center justify-center bg-white',
+                'flex items-center justify-center bg-white',
                 className
             )}
         >
             <form
                 onSubmit={onSubmit}
                 className={clsx(
-                    'flex w-[500px] flex-col items-center justify-center gap-9 rounded-2xl border border-purple-700 bg-white py-8 px-10 shadow-md',
+                    'mx-5 flex w-full flex-col items-center justify-center gap-6 rounded-2xl border border-purple-700 bg-white px-4 py-4 shadow-md lg:mx-0 lg:w-[500px] lg:gap-9 lg:py-8 lg:px-10',
                     boxClassName
                 )}
             >
                 {children}
             </form>
-        </section>
+        </MainLayout>
     );
 };
 

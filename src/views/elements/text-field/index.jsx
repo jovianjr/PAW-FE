@@ -73,7 +73,7 @@ const TextField = ({
                     type={type}
                     placeholder={placeholder}
                     className={clsx(
-                        'w-full rounded-lg border border-slate-300 bg-slate-100 py-3 px-4 text-slate-900 placeholder:font-light placeholder:text-slate-400 focus:outline-slate-400',
+                        'w-full rounded-lg border border-slate-300 bg-slate-100 py-3 px-4 text-sm text-slate-900 placeholder:font-light placeholder:text-slate-400 focus:outline-slate-400 lg:text-base',
                         fieldState.error &&
                             '!border-red-500 !text-red-500 focus:!outline-red-500',
                         Icon && 'pl-10',
