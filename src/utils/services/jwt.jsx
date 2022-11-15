@@ -10,7 +10,7 @@ export const set = (newToken, options = null) => {
 };
 
 export const remove = () => {
-    Cookies.removeItem(authTokenKey);
+    Cookies.remove(authTokenKey);
 };
 
 const jwt = { get, set, remove };
