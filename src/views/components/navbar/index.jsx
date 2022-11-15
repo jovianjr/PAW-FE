@@ -1,73 +1,30 @@
+import clsx from 'clsx';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import {
-    ArrowRightOnRectangleIcon,
     ArrowLeftOnRectangleIcon,
+    ArrowRightOnRectangleIcon,
     Bars3Icon,
-    Cog6ToothIcon,
-    MagnifyingGlassIcon,
-    UserCircleIcon
+    MagnifyingGlassIcon
 } from '@heroicons/react/24/outline';
 
 import Dropdown from '@/views/components/dropdown';
+import RenderIf from '@/views/components/render-if';
 import Button from '@/views/elements/button';
 import TextField from '@/views/elements/text-field';
 
-const menuOptions = [
-    {
-        icon: UserCircleIcon,
-        path: '/profile',
-        name: 'profile',
-        text: 'My Account'
-    },
-    {
-        icon: Cog6ToothIcon,
-        path: '/profile/settings',
-        name: 'settings',
-        text: 'Settings'
-    },
-    {
-        icon: ArrowLeftOnRectangleIcon,
-        path: '/',
-        name: 'logout',
-        text: 'Log out',
-        className: 'text-red-500 !stroke-red-500'
-    }
-];
+import { AuthContext } from '@/utils/context/auth';
+import jwt from '@/utils/services/jwt';
 
-const menuOptionsMobile = [
-    {
-        icon: UserCircleIcon,
-        path: '/profile',
-        name: 'profile',
-        text: 'My Account'
-    },
-    {
-        icon: Cog6ToothIcon,
-        path: '/profile/settings',
-        name: 'settings',
-        text: 'Settings'
-    },
-    {
-        icon: ArrowRightOnRectangleIcon,
-        path: '/login',
-        name: 'Login',
-        text: 'Sign In',
-        className:
-            'bg-purple-500 text-white stroke-white text-center mx-4 rounded-lg flex justify-center !py-3 mt-4'
-    },
-    {
-        icon: ArrowLeftOnRectangleIcon,
-        path: '/',
-        name: 'logout',
-        text: 'Log out',
-        className:
-            'text-red-500 !stroke-red-500 text-center mx-4 rounded-lg flex justify-center !py-3 mt-4'
-    }
-];
+import {
+    menuOptions,
+    menuOptionsMobile
+} from '@/utils/constants/options/navbar';
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const { user, logout } = useContext(AuthContext);
     const { control, handleSubmit, resetField } = useForm({
         defaulValues: { search: '' }
     });
@@ -77,6 +34,11 @@ const Navbar = () => {
     };
 
     const onClickDropdown = val => {
+        if (val.name === 'logout') {
+            logoutHandler();
+            return;
+        }
+
         if (
             !val.path ||
             !menuOptions.filter(option => option.path === val.path)
@@ -84,6 +46,12 @@ const Navbar = () => {
             return;
 
         navigate(val.path);
+    };
+
+    const logoutHandler = () => {
+        jwt.remove();
+        logout();
+        navigate('/');
     };
 
     return (
@@ -113,30 +81,40 @@ const Navbar = () => {
                     }
                 />
             </form>
-            <div className="hidden items-center gap-2 lg:flex">
-                <Button href="/login" variant="secondary">
-                    Login
-                </Button>
-                <Button href="/signup">Sign Up</Button>
-            </div>
-            <div className="hidden items-center gap-4 lg:flex">
-                <Link
-                    to="/art/new"
-                    className="text-sm font-semibold hover:underline"
-                >
-                    Create
-                </Link>
-                <Dropdown
-                    options={menuOptions}
-                    itemClassName="pr-10"
-                    onClick={val => onClickDropdown(val)}
-                >
-                    <img
-                        src="https://picsum.photos/200"
-                        className="aspect-square w-8 rounded-full border border-slate-300 object-cover"
-                    />
-                </Dropdown>
-            </div>
+            <RenderIf when={!user}>
+                <div className="hidden items-center gap-2 lg:flex">
+                    <Button href="/login" variant="secondary">
+                        Login
+                    </Button>
+                    <Button href="/signup">Sign Up</Button>
+                </div>
+            </RenderIf>
+            <RenderIf when={!!user}>
+                <div className="hidden items-center gap-4 lg:flex">
+                    <Link
+                        to="/art/new"
+                        className="text-sm font-semibold hover:underline"
+                    >
+                        Create
+                    </Link>
+                    <Dropdown
+                        options={menuOptions}
+                        className="item-center flex justify-center"
+                        itemClassName="pr-10"
+                        onClick={val => onClickDropdown(val)}
+                    >
+                        <img
+                            src={
+                                user
+                                    ? user.image ??
+                                      '/images/profile-placeholder.png'
+                                    : '/images/profile-placeholder.png'
+                            }
+                            className="aspect-square w-8 rounded-full border border-slate-300 object-cover"
+                        />
+                    </Dropdown>
+                </div>
+            </RenderIf>
             <div className="absolute right-0 top-0 flex h-full items-center gap-4 lg:hidden">
                 <Link
                     to="/art/new"
@@ -145,11 +123,40 @@ const Navbar = () => {
                     Create
                 </Link>
                 <Dropdown
-                    options={menuOptionsMobile}
+                    overlay
                     panelClassName="w-screen px-2 py-2"
                     itemClassName="pr-10"
                     onClick={val => onClickDropdown(val)}
-                    overlay
+                    options={menuOptionsMobile}
+                    ExtendedOptions={({ close }) => (
+                        <>
+                            <RenderIf when={!user}>
+                                <Link
+                                    to="/login"
+                                    className={clsx(
+                                        'mx-4 flex items-center gap-2 rounded-lg bg-purple-500 px-4 py-3 text-start text-white hover:bg-purple-700'
+                                    )}
+                                >
+                                    <ArrowRightOnRectangleIcon className="h-5 w-5 stroke-white" />
+                                    Sign In
+                                </Link>
+                            </RenderIf>
+                            <RenderIf when={!!user}>
+                                <div
+                                    className={clsx(
+                                        'flex items-center gap-2 px-4 py-3 text-red-500 hover:bg-slate-200'
+                                    )}
+                                    onClick={() => {
+                                        logoutHandler();
+                                        close();
+                                    }}
+                                >
+                                    <ArrowLeftOnRectangleIcon className="h-5 w-5 stroke-red-500" />
+                                    Log Out
+                                </div>
+                            </RenderIf>
+                        </>
+                    )}
                 >
                     <Bars3Icon className="h-6 w-10 px-2" />
                 </Dropdown>

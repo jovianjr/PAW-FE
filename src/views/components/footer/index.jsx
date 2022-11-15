@@ -39,7 +39,7 @@ const Footer = () => {
                 </Link>
                 <div className="flex items-center gap-2">
                     {socialMedia.map((val, index) => (
-                        <a href={val.url}>
+                        <a href={val.url} key={index}>
                             <val.icon />
                         </a>
                     ))}
