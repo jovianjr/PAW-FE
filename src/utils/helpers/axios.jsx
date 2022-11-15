@@ -5,7 +5,12 @@ const api = axios.create({ baseURL: import.meta.env.VITE_API_URL });
 
 api.interceptors.request.use(
     req => {
-        req.headers = { Authorization: `Bearer ${get()}` };
+        const authorization =
+            req.headers && req.headers['Authorization'] !== undefined
+                ? req.headers['Authorization']
+                : `Bearer ${get()}`;
+
+        req.headers = { Authorization: authorization };
         return Promise.resolve(req);
     },
     err => {
