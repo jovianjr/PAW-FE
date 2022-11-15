@@ -1,5 +1,5 @@
 // Contexts.js
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useReducer } from 'react';
 import { LOGIN, LOGOUT } from './type';
 import reducer from './reducer';
 

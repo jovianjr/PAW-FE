@@ -9,10 +9,12 @@ import RenderIf from '@/views/components/render-if';
  * @property {React.ReactNode} children
  * @property {string[]} [options]
  * @property {('left'|'right')} position
+ * @property {string} [className]
  * @property {string} [panelClassName]
  * @property {string} [itemClassName]
  * @property {boolean} [overlay]
  * @property {React.MouseEvent} [onClick]
+ * @property {React.ReactNode} [ExtendedOptions]
  */
 
 /**
@@ -22,16 +24,18 @@ const Dropdown = ({
     children = null,
     options = [],
     position = 'right',
+    className = '',
     panelClassName = '',
     itemClassName = '',
     overlay = false,
-    onClick = () => {}
+    onClick = () => {},
+    ExtendedOptions = () => {}
 }) => {
     return (
         <Popover className="relative h-full">
-            {({ open }) => (
+            {({ open, close }) => (
                 <>
-                    <Popover.Button className="h-full">
+                    <Popover.Button className={clsx('h-full', className)}>
                         {children}
                     </Popover.Button>
                     <Transition
@@ -83,6 +87,7 @@ const Dropdown = ({
                                     </Tag>
                                 );
                             })}
+                            <ExtendedOptions {...{ close }} />
                         </Popover.Panel>
                     </Transition>
                 </>

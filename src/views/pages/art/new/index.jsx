@@ -10,7 +10,7 @@ import Button from '@/views/elements/button';
 import Select from '@/views/elements/select';
 
 import MainLayout from '@/views/layouts/main-layout';
-import options from '@/utils/constants/options-genre';
+import genreOptions from '@/utils/constants/options/genre';
 
 const ArtNew = () => {
     const [image, setImage] = useState('https://picsum.photos/800/600');
@@ -113,7 +113,7 @@ const ArtNew = () => {
                             </div>
                             <Select
                                 isMulti
-                                options={options}
+                                options={genreOptions}
                                 control={control}
                                 name="genre"
                                 rules={{ required: true }}
