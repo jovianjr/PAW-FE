@@ -41,27 +41,27 @@ const User = () => {
                             Martial Artist
                         </h2>
                     </div>
-                    <div className="padding-[16px] flex h-[237px]  w-auto flex-col items-start gap-[24px] bg-white ">
-                        <div className="padding-[10px] flex h-[36px]  w-auto flex-row items-center gap-[10px] bg-white ">
-                            <h3 className="purple text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white ">
-                                {' '}
-                                General settings
-                            </h3>
-                        </div>
-                        <div className="padding-[10px] flex  h-[36px] w-auto flex-row items-center gap-[10px] bg-white ">
-                            <h4 className="text-start text-xs font-bold not-italic transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white">
+                    <div className="padding-[16px] flex h-[237px]  w-full flex-col items-start gap-[24px]">
+                        <h3 className="w-full py-2 px-3 text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white  ">
+                            General settings
+                        </h3>
+
+                        {/* diganti kayak atas ini nanti */}
+                        <div className="padding-[16px] flex h-[36px]  w-full flex-row items-center gap-[10px] bg-white ">
+                            <h4 className="w-full py-2 px-3 text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white ">
                                 {' '}
                                 Password
                             </h4>
                         </div>
-                        <div className="padding-[10px] flex  h-[36px] w-auto flex-row items-center gap-[10px] bg-white ">
-                            <h4 className="text-start text-xs font-bold not-italic transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white">
+                        <div className="padding-[10px] flex h-[35px] w-full flex-row items-center gap-[10px] bg-white hover:bg-purple-50 ">
+                            <h5 className="w-full py-2 px-3 text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white">
                                 {' '}
                                 Help
-                            </h4>
+                            </h5>
                         </div>
-                        <div className="padding-[10px] h-[35px] w-auto  flex-row items-center gap-[10px] bg-white ">
-                            <h5 className="text-start text-xs font-bold not-italic text-red-500 ">
+
+                        <div className="padding-[10px] h-[35px] w-full  flex-row items-center gap-[10px] bg-white ">
+                            <h5 className="w-full py-2 px-3 text-start text-xs font-bold not-italic text-red-500">
                                 {' '}
                                 Logout
                             </h5>
@@ -77,7 +77,7 @@ const User = () => {
                         </h1>
                         <div className="grid grid-cols-12 items-center">
                             <div className="col-span-3">
-                                <h5 className="text-start text-xs font-normal not-italic">
+                                <h5 className="px-3 text-start text-xs font-normal not-italic">
                                     {' '}
                                     Profile picture
                                 </h5>
@@ -95,7 +95,7 @@ const User = () => {
                         </div>
                         <div className="grid grid-cols-12 items-center">
                             <div className="col-span-3">
-                                <h5 className="text-start text-xs font-normal not-italic">
+                                <h5 className="px-3 text-start text-xs font-normal not-italic">
                                     {' '}
                                     Email
                                 </h5>
@@ -113,7 +113,7 @@ const User = () => {
 
                         <div className="grid grid-cols-12 items-center">
                             <div className="col-span-3">
-                                <h5 className="text-start text-xs font-normal not-italic">
+                                <h5 className="px-3 text-start text-xs font-normal not-italic">
                                     {' '}
                                     Username
                                 </h5>
@@ -131,11 +131,11 @@ const User = () => {
 
                         <div className="grid-row-1 grid grid-cols-12 items-center">
                             <div className="items-top  col-span-3 flex">
-                                <h5 className="text-xs font-normal not-italic">
+                                <h5 className="py-1 px-3 text-xs font-normal not-italic">
                                     {' '}
                                     Display Name
                                 </h5>
-                                <span className="text-red-500">*</span>
+                                <span className=" text-red-500">*</span>
                             </div>
 
                             <div className=" col-span-9">
@@ -151,7 +151,7 @@ const User = () => {
 
                         <div className="grid grid-cols-12 items-center">
                             <div className="col-span-3">
-                                <h5 className="text-start text-xs font-normal not-italic">
+                                <h5 className="px-3 text-start text-xs font-normal not-italic">
                                     {' '}
                                     Title
                                 </h5>
@@ -166,9 +166,9 @@ const User = () => {
                                 />
                             </div>
                         </div>
-                        <div className=" grid grid-cols-12  items-center">
+                        <div className=" grid grid-cols-12  items-start">
                             <div className="col-span-3">
-                                <h5 className="text-start text-xs font-normal not-italic">
+                                <h5 className="px-3 text-start text-xs font-normal not-italic">
                                     {' '}
                                     Bio
                                 </h5>
