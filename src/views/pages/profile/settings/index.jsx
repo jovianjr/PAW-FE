@@ -1,5 +1,8 @@
-import { Cog6ToothIcon, BanknotesIcon } from '@heroicons/react/24/solid';
-import { PhotoIcon } from '@heroicons/react/24/Outline';
+import {
+    Cog6ToothIcon,
+    BanknotesIcon,
+    PhotoIcon
+} from '@heroicons/react/24/solid';
 import { useParams } from 'react-router-dom';
 import Button from '@/views/elements/button';
 import { useForm } from 'react-hook-form';
