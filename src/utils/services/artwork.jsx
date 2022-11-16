@@ -35,8 +35,10 @@ const newArtwork = async ({
         imgSrc: image,
         genre: genre
     });
-
+};
+const getListArt = async user_id => {
+    const { data } = await axios.get(`/artwork?user_id=${user_id}`);
     return data;
 };
 
-export { uploadFile, newArtwork };
+export { uploadFile, newArtwork, getListArt };

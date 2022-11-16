@@ -1,14 +1,49 @@
+import { useQuery } from '@tanstack/react-query';
 import { Cog6ToothIcon, BanknotesIcon } from '@heroicons/react/24/solid';
-
 import { useParams } from 'react-router-dom';
+
 import MainLayout from '@/views/layouts/main-layout';
+import { CardArt } from '@/views/components/card';
+
+import { getListArt } from '@/utils/services/artwork';
 
 const User = () => {
     const params = useParams();
+    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
+        ['get-Profile'],
+        () => getListArt(params.id),
+        {
+            refetchOnWindowFocus: false,
+            refetchInterval: false,
+            onSuccess: res => {},
+            onError: err => {},
+            retry: (failureCount, error) => {
+                if (error?.response?.status === 498) return false;
+                else if (failureCount === 2) return false;
+                else return true;
+            }
+        }
+    );
+
     return (
         <MainLayout>
             <div className="h-screen w-full bg-slate-200">
-                Hello profile page!
+                Hello profile pages!
+                <div className="grid gap-x-4 gap-y-6 px-20 py-4 lg:w-2/3 lg:grid-cols-3">
+                    {data?.data?.map((val, index) => {
+                        return (
+                            <CardArt
+                                key={index}
+                                image={val.imgSrc}
+                                slug={val.slug}
+                                title={val.title}
+                                name={val.user_id?.name}
+                                username={val.user_id?.username}
+                                date_created={val.date_created}
+                            />
+                        );
+                    })}
+                </div>
                 <div
                     className="w-100 r-[26px] t-[112px] absolute right-[26px]  top-[80px] flex h-40 h-auto flex-col items-center  
 						gap-[24px]  bg-white p-6 "
