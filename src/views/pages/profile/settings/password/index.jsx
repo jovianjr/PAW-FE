@@ -28,37 +28,34 @@ const User = () => {
                             className="aspect-square w-40 rounded-full"
                         />
                         <h1 className="text-center text-xl font-semibold not-italic leading-7">
-                            {' '}
                             John Doe{' '}
                         </h1>
 
                         <h2 className="text-center text-sm text-sm font-normal not-italic leading-5">
-                            {' '}
                             Martial Artist
                         </h2>
                     </div>
-                    <div className="padding-[16px] flex h-[237px]  w-auto flex-col items-start gap-[24px] bg-white ">
-                        <div className="padding-[10px] flex h-[36px]  w-auto flex-row items-center gap-[10px] bg-white ">
-                            <h3 className="purple text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-900 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white  ">
-                                {' '}
-                                General settings
-                            </h3>
-                        </div>
-                        <div className="padding-[10px] flex h-[36px]  w-auto flex-row items-center gap-[10px] bg-white ">
-                            <h4 className="text-start text-xs font-bold not-italic transition-all  hover:bg-purple-50 hover:text-purple-900 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white">
+                    <div className="padding-[16px] flex h-[237px]  w-full flex-col items-start gap-[24px]">
+                        <h3 className="w-full py-2 px-3 text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white  ">
+                            General settings
+                        </h3>
+
+                        {/* diganti kayak atas ini nanti */}
+                        <div className="padding-[16px] flex h-[36px]  w-full flex-row items-center gap-[10px] bg-white ">
+                            <h4 className="w-full py-2 px-3 text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white ">
                                 {' '}
                                 Password
                             </h4>
                         </div>
-                        <div className="padding-[10px] flex h-[35px] w-auto flex-row items-center gap-[10px] bg-white hover:bg-purple-50 ">
-                            <h5 className="text-start text-xs font-bold not-italic transition-all  hover:text-purple-900 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white">
+                        <div className="padding-[10px] flex h-[35px] w-full flex-row items-center gap-[10px] bg-white hover:bg-purple-50 ">
+                            <h5 className="w-full py-2 px-3 text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white">
                                 {' '}
                                 Help
                             </h5>
                         </div>
 
-                        <div className="padding-[10px] h-[35px] w-auto  flex-row items-center gap-[10px] bg-white ">
-                            <h5 className="text-start text-xs font-normal not-italic text-red-500">
+                        <div className="padding-[10px] h-[35px] w-full  flex-row items-center gap-[10px] bg-white ">
+                            <h5 className="w-full py-2 px-3 text-start text-xs font-bold not-italic text-red-500">
                                 {' '}
                                 Logout
                             </h5>
@@ -75,7 +72,7 @@ const User = () => {
 
                         <div className="grid grid-cols-12 items-center">
                             <div className="col-span-3">
-                                <h5 className="text-start text-xs font-bold not-italic">
+                                <h5 className="px-3 text-start text-xs font-bold not-italic">
                                     {' '}
                                     Current Password
                                 </h5>
@@ -93,7 +90,7 @@ const User = () => {
 
                         <div className="grid grid-cols-12 items-center">
                             <div className="col-span-3">
-                                <h5 className="text-start text-xs font-bold not-italic">
+                                <h5 className="px-3 text-start text-xs font-bold not-italic">
                                     {' '}
                                     New Password
                                 </h5>
@@ -111,7 +108,7 @@ const User = () => {
 
                         <div className="grid-row-1 grid grid-cols-12 items-center">
                             <div className="col-span-3 ">
-                                <h5 className="text-xs font-bold not-italic">
+                                <h5 className="px-3 text-xs font-bold not-italic">
                                     {' '}
                                     Confirm New Password
                                 </h5>
