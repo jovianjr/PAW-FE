@@ -1,49 +1,57 @@
-import { Cog6ToothIcon,BanknotesIcon } from '@heroicons/react/24/solid';
+import { Cog6ToothIcon, BanknotesIcon } from '@heroicons/react/24/solid';
 
 import { useParams } from 'react-router-dom';
+import MainLayout from '@/views/layouts/main-layout';
 
 const User = () => {
-	const params = useParams();
-	return (
-	<div className="bg-slate-200 h-screen w-full">
-	
-		Hello profile page!
+    const params = useParams();
+    return (
+        <MainLayout>
+            <div className="h-screen w-full bg-slate-200">
+                Hello profile page!
+                <div
+                    className="w-100 r-[26px] t-[112px] absolute right-[26px]  top-[80px] flex h-40 h-auto flex-col items-center  
+						gap-[24px]  bg-white p-6 "
+                >
+                    <Cog6ToothIcon className="absolute top-0  right-0 h-4 w-4 " />
+                    <img
+                        src="https://picsum.photos/200/300"
+                        className="aspect-square w-40 rounded-full"
+                    />
 
-		<div className="flex flex-col bg-white absolute p-6  gap-[24px] items-center h-40 w-100 r-[26px] t-[112px]  
-						right-[26px]  h-auto top-[80px] ">  
-						
-		<Cog6ToothIcon className="h-4 w-4  absolute top-0 right-0 " />			
-		<img 
-			src= "https://picsum.photos/200/300"
-			className="aspect-square rounded-full w-40" />
-			
+                    <div className="padding-[24px] flex h-auto  w-auto flex-col items-start gap-[4px] bg-white ">
+                        <h1 className="text-xl font-semibold not-italic leading-7">
+                            {' '}
+                            John Doe{' '}
+                        </h1>
+                        <h2 className="text-center text-sm text-sm font-normal not-italic leading-5">
+                            {' '}
+                            Martial Artist
+                        </h2>
+                    </div>
 
-		<div className="flex flex-col bg-white  padding-[24px] gap-[4px] items-start h-auto w-auto ">
-			<h1 className = "text-xl not-italic font-semibold leading-7" > John Doe </h1>
-			<h2 className = "text-sm leading-5 font-normal text-sm text-center not-italic" > Martial Artist</h2>
-		</div>
-		
-		<div className="flex flex-row bg-white  gap-[8px] items-start h-auto w-auto ">
+                    <div className="flex h-auto w-auto  flex-row items-start gap-[8px] bg-white ">
+                        <BanknotesIcon className="h-4 w-4" />
+                    </div>
 
-			<BanknotesIcon className = "h-4 w-4"/>
-		</div>
-		
-		<div className="flex flex-col bg-white  gap-[8px] items-start h-auto w-auto ">
+                    <div className="flex h-auto w-auto  flex-col items-start gap-[8px] bg-white ">
+                        <h3 className="text-start text-xs font-normal not-italic leading-5">
+                            {' '}
+                            Other Information
+                        </h3>
+                        <h4 className="text-sm font-normal not-italic leading-5">
+                            At vero eos et accusamus et iusto odio{' '}
+                        </h4>
+                    </div>
 
-			<h3 className ="text-xs not-italic text-start font-normal leading-5"> Other Information</h3>
-			<h4 className ="text-sm not-italic font-normal leading-5">At vero eos et accusamus et iusto odio </h4>
-	</div>
-
-		<h5 className = "text-xs not-italic font-normal text-center leading-4"> Member since: Aug 20, 2020</h5>
-	
-			 	 
-		</div>
-		
-	 </div>
-	
-
-
-);
+                    <h5 className="text-center text-xs font-normal not-italic leading-4">
+                        {' '}
+                        Member since: Aug 20, 2020
+                    </h5>
+                </div>
+            </div>
+        </MainLayout>
+    );
 };
 
 export default User;
