@@ -1,13 +1,15 @@
 import { CardUser } from '@/views/components/card';
 import { useQuery } from '@tanstack/react-query';
 import { searchByUser } from '@/utils/services/user';
+import { useParams } from 'react-router-dom';
 
 const data = [];
 
 const CardUsers = () => {
+    const params = useParams();
     const { data, isLoading, isFetching, isError, isIdle } = useQuery(
         ['searchByUser'],
-        () => searchByUser('wa'),
+        () => searchByUser(params.keyword),
         {
             refetchOnWindowFocus: false,
             refetchInterval: false,

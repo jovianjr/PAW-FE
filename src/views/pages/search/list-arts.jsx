@@ -1,13 +1,15 @@
 import { CardArt } from '@/views/components/card';
 import { useQuery } from '@tanstack/react-query';
 import { searchByArtwork } from '@/utils/services/artwork';
+import { useParams } from 'react-router-dom';
 
 const data = [];
 
 const CardArts = ({}) => {
+    const params = useParams();
     const { data, isLoading, isFetching, isError, isIdle } = useQuery(
         ['searchByArtwork'],
-        () => searchByArtwork('params'),
+        () => searchByArtwork(params.keyword),
         {
             refetchOnWindowFocus: false,
             refetchInterval: false,
@@ -26,7 +28,7 @@ const CardArts = ({}) => {
                 return (
                     <CardArt
                         key={index}
-                        image={card.img}
+                        image={card.imgSrc}
                         slug={card.slug}
                         title={card.title}
                         name={card.name}
