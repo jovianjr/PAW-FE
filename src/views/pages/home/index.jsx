@@ -1,78 +1,15 @@
+import { useQuery } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import {MagnifyingGlassIcon, ChevronDownIcon,ChevronUpDownIcon} from '@heroicons/react/24/outline';
-import { CardArt } from '@/views/components/card';
 
 import MainLayout from '@/views/layouts/main-layout';
 import TextField from '@/views/elements/text-field';
 import Dropdown from '@/views/components/dropdown';
+import { CardArt } from '@/views/components/card';
+import { getAll } from '@/utils/services/artwork';
 
-const data = [
-    {
-        img: '/images/1.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/2.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/3.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/4.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/5.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/6.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/7.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/8.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    }
-];
+const data = [];
 
 const menuOptions = [
     {
@@ -108,6 +45,21 @@ const Home = () => {
 
         navigate(val.path);
     };
+    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
+        ['get-All'],
+        () => getAll(),
+        {
+            refetchOnWindowFocus: false,
+            refetchInterval: false,
+            onSuccess: res => {},
+            onError: err => {},
+            retry: (failureCount, error) => {
+                if (error?.response?.status === 498) return false;
+                else if (failureCount === 2) return false;
+                else return true;
+            }
+        }
+    );
 
     return (
         <MainLayout>
@@ -137,7 +89,7 @@ const Home = () => {
                 >
                     Search
                </button>
-               <Dropdown
+               <Dropdown 
                     options={menuOptions}
                     itemClassName="pr-10 text-xs font-small"
                     onClick={val => onClickDropdown(val)}
@@ -174,21 +126,21 @@ const Home = () => {
                 </Dropdown>
             </div>
             <div className="grid gap-x-4 gap-y-6 lg:grid-cols-4 lg:w-full px-20 py-4">
-                {data.map((card, index) => {
+                {data?.data?.map((val, index) => {
                     return (
                         <CardArt
                             key={index}
-                            image={card.img}
-                            slug={card.slug}
-                            title={card.title}
-                            name={card.name}
-                            username={card.username}
-                            date_created={card.date_created}
+                            image={val.imgSrc}
+                            slug={val.slug}
+                            title={val.title}
+                            name={val.user_id?.name}
+                            username={val.user_id?.username}
+                            date_created={val.date_created}
                         />
                     );
                 })}
             </div>
-            <div className="h-screen"></div>
+            {/* <div className="h-screen"></div> */}
         </MainLayout>
     );
 };
