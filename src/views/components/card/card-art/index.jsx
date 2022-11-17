@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 /**
  * @typedef CardArtProps
@@ -43,7 +44,9 @@ const CardArt = ({
                         {name}
                     </Link>
                 </div>
-                <p className="text-xs text-slate-500">{date_created}</p>
+                <p className="text-xs text-slate-500">
+                    {moment.utc(date_created).format('DD MMMM YYYY')}
+                </p>
             </div>
         </div>
     );

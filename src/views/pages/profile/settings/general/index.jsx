@@ -18,7 +18,7 @@ import { updateUser } from '@/utils/services/user';
 
 const GeneralSettings = () => {
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext);
+    const { user, login } = useContext(AuthContext);
     const [image, setImage] = useState();
 
     const { control, handleSubmit, reset } = useForm({
@@ -36,19 +36,23 @@ const GeneralSettings = () => {
     });
 
     useEffect(() => {
-        reset({
-            email: user.email,
-            username: user.username,
-            name: user.name,
-            title: user.title,
-            bio: user.bio,
-            instagram: user.instagram,
-            twitter: user.twitter,
-            youtube: user.youtube,
-            facebook: user.facebook
-        });
-        setImage(user.image);
+        resetFields();
     }, [user]);
+
+    const resetFields = () => {
+        reset({
+            email: user?.email,
+            username: user?.username,
+            name: user?.name,
+            title: user?.title,
+            bio: user?.bio,
+            instagram: user?.instagram,
+            twitter: user?.twitter,
+            youtube: user?.youtube,
+            facebook: user?.facebook
+        });
+        setImage(user?.image);
+    };
 
     const imageUploadMutation = useMutation(data => uploadFile(data), {
         onSuccess: res => {
@@ -65,6 +69,7 @@ const GeneralSettings = () => {
     const updateUserMutation = useMutation(data => updateUser(data), {
         onSuccess: res => {
             announce.success('artwork has been created succesfully');
+            login(res.data);
             navigate('/profile');
         },
         onError: err => {
@@ -76,7 +81,6 @@ const GeneralSettings = () => {
     });
 
     const onSubmit = data => {
-        console.log(data);
         updateUserMutation.mutateAsync({
             image: image,
             name: data.name,
@@ -122,7 +126,7 @@ const GeneralSettings = () => {
                                 ></input>
                                 <label
                                     className="flex cursor-pointer items-center gap-2 rounded p-4 transition-all hover:bg-purple-100"
-                                    for="upload-photo"
+                                    htmlFor="upload-photo"
                                 >
                                     <div className="h-full rounded border border-purple-300 py-3 px-3">
                                         <PhotoIcon className="h-5 w-5" />
@@ -143,7 +147,7 @@ const GeneralSettings = () => {
                                         <div className="col-span-9 h-full">
                                             <img
                                                 src={image}
-                                                className="aspect-square w-20 rounded-full ring ring-slate-200"
+                                                className="aspect-square w-20 rounded-full object-cover ring ring-slate-200"
                                             />
                                         </div>
                                     </div>
@@ -164,14 +168,16 @@ const GeneralSettings = () => {
                         <div className="col-span-3">
                             <label className="text-sm">Email</label>
                         </div>
-                        <div className="col-span-9">{user.email ?? '-'}</div>
+                        <div className="col-span-9">{user?.email ?? '-'}</div>
                     </div>
 
                     <div className="grid grid-cols-12 items-start">
                         <div className="col-span-3">
                             <label className="text-sm">Username</label>
                         </div>
-                        <div className="col-span-9">{user.username ?? '-'}</div>
+                        <div className="col-span-9">
+                            {user?.username ?? '-'}
+                        </div>
                     </div>
 
                     <Row
@@ -230,7 +236,11 @@ const GeneralSettings = () => {
                             Update
                         </Button>
 
-                        <button type="button" className="text-slate-500">
+                        <button
+                            type="button"
+                            className="text-slate-500"
+                            onClick={resetFields}
+                        >
                             Reset
                         </button>
                     </div>

@@ -9,9 +9,11 @@ import RenderIf from '@/views/components/render-if';
  * @property {React.ReactNode} children
  * @property {string[]} [options]
  * @property {('left'|'right')} position
+ * @property {string} [currentItem]
  * @property {string} [className]
  * @property {string} [panelClassName]
  * @property {string} [itemClassName]
+ * @property {string} [activeClassName]
  * @property {boolean} [overlay]
  * @property {React.MouseEvent} [onClick]
  * @property {React.ReactNode} [ExtendedOptions]
@@ -24,9 +26,11 @@ const Dropdown = ({
     children = null,
     options = [],
     position = 'right',
+    currentItem = '',
     className = '',
     panelClassName = '',
     itemClassName = '',
+    activeClassName = '',
     overlay = false,
     onClick = () => {},
     ExtendedOptions = () => {}
@@ -70,19 +74,23 @@ const Dropdown = ({
                         >
                             {options.map((val, index) => {
                                 const Tag = false ? 'a' : 'button';
-                                console.log(!!val.icon);
                                 return (
                                     <Tag
                                         key={index}
                                         className={clsx(
                                             'flex items-center gap-2 stroke-slate-900 px-4 py-4 text-start hover:bg-slate-200',
+                                            currentItem === val.name
+                                                ? activeClassName
+                                                : '',
                                             itemClassName,
                                             val.className
                                         )}
                                         onClick={() => onClick(val)}
                                     >
                                         <RenderIf when={!!val.icon}>
-                                            <val.icon className="h-5 w-5 stroke-inherit" />
+                                            {!!val.icon ? (
+                                                <val.icon className="h-5 w-5 stroke-inherit" />
+                                            ) : null}
                                         </RenderIf>
                                         {val.text}
                                     </Tag>
