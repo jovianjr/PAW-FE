@@ -8,11 +8,14 @@ import { useQuery } from '@tanstack/react-query';
 import { Cog6ToothIcon, BanknotesIcon } from '@heroicons/react/24/solid';
 import { useParams } from 'react-router-dom';
 
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '@/utils/context/auth';
 import MainLayout from '@/views/layouts/main-layout';
 import { CardArt } from '@/views/components/card';
 
 import { getUserByUsername } from '@/utils/services/user';
 import { getListArt } from '@/utils/services/artwork';
+import { getUser } from '@/utils/services/user';
 
 const socialMedia = [
     {
@@ -39,22 +42,7 @@ const socialMedia = [
 
 const User = () => {
     const params = useParams();
-    const getUser = useQuery(
-        ['get-user'],
-        () => getUserByUsername(params.username),
-        {
-            refetchOnWindowFocus: false,
-            refetchInterval: false,
-            onSuccess: res => {},
-            onError: err => {},
-            retry: (failureCount, error) => {
-                if (error?.response?.status === 498) return false;
-                else if (failureCount === 2) return false;
-                else return true;
-            }
-        }
-    );
-
+    const { user } = useContext(AuthContext);
     const { data, isLoading, isFetching, isError, isIdle } = useQuery(
         ['get-art-by-user', getUser.data?.data?.username],
         () => getListArt(getUser.data?.data?._id),
@@ -101,12 +89,10 @@ const User = () => {
 
                     <div className="padding-[24px] flex h-auto  w-auto flex-col items-start gap-[4px] bg-white ">
                         <h1 className="text-xl font-semibold not-italic leading-7">
-                            {' '}
-                            John Doe{' '}
+                            {user.username ?? '-'}
                         </h1>
                         <h2 className="text-center text-sm text-sm font-normal not-italic leading-5">
-                            {' '}
-                            Martial Artist
+                            {user.title ?? '-'}
                         </h2>
                     </div>
 
@@ -124,13 +110,12 @@ const User = () => {
                             Other Information
                         </h3>
                         <h4 className="text-sm font-normal not-italic leading-5">
-                            At vero eos et accusamus et iusto odiofjhfbfvhffjf{' '}
+                            {user.bio ?? '-'}
                         </h4>
                     </div>
 
-                    <h5 className=" text-center text-xs font-normal not-italic leading-4">
-                        {' '}
-                        Member since: Aug 20, 2020
+                    <h5 className="text-center text-xs font-normal not-italic leading-4">
+                        {user.createdAt ?? '-'}
                     </h5>
                 </div>
             </div>
