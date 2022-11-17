@@ -6,4 +6,10 @@ const getUser = async () => {
     return data;
 };
 
-export { getUser };
+const getUserByUsername = async username => {
+    const { data } = await axios.get(`/user/${username}`, { headers: null });
+
+    return data;
+};
+
+export { getUser, getUserByUsername };

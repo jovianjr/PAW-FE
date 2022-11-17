@@ -46,7 +46,6 @@ const User = () => {
                             General settings
                         </h3>
 
-                        {/* diganti kayak atas ini nanti */}
                         <div className="padding-[16px] flex h-[36px]  w-full flex-row items-center gap-[10px] bg-white ">
                             <h4 className="w-full py-2 px-3 text-start text-xs font-bold not-italic leading-5 transition-all  hover:bg-purple-50 hover:text-purple-700 disabled:bg-gray-300 disabled:hover:border-transparent disabled:hover:text-white ">
                                 {' '}
@@ -104,7 +103,7 @@ const User = () => {
                                 <input
                                     control={control}
                                     name="Email"
-                                    className="w-2/3 !bg-slate-200"
+                                    className="w-2/3 !bg-slate-200 "
                                     inputClassName="rounded-none border-y-0 border-x-0 border-slate-300 !bg-transparent text-base font-medium text-slate-900 placeholder-shown:border-b-2 focus:border-b-2 focus:!outline-none "
                                     rules={{ required: true }}
                                 />
