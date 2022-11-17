@@ -44,21 +44,6 @@ const Home = () => {
         setSortBy(val.name);
         return;
     };
-    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
-        ['get-All'],
-        () => getAll(),
-        {
-            refetchOnWindowFocus: false,
-            refetchInterval: false,
-            onSuccess: res => {},
-            onError: err => {},
-            retry: (failureCount, error) => {
-                if (error?.response?.status === 498) return false;
-                else if (failureCount === 2) return false;
-                else return true;
-            }
-        }
-    );
 
     const { data, isLoading, isFetching, isError, isIdle } = useQuery(
         ['get-All', sortBy],
