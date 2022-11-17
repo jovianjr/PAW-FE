@@ -12,4 +12,28 @@ const getUser = async () => {
     return data;
 };
 
-export { getUser, searchByUser };
+const updateUser = async ({
+    image,
+    name,
+    title,
+    bio,
+    instagram,
+    twitter,
+    youtube,
+    facebook
+}) => {
+    const { data } = await axios.patch(`/user`, {
+        image: image,
+        name: name,
+        title: title,
+        bio: bio,
+        instagram: instagram,
+        twitter: twitter,
+        youtube: youtube,
+        facebook: facebook
+    });
+
+    return data;
+};
+
+export { getUser, searchByUser, updateUser };
