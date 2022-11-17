@@ -53,10 +53,18 @@ const getDetailArt = async () => {
     return data;
 };
 
-const getAll = async user_id => {
-    const { data } = await axios.get(`/artwork`);
+const getAll = async sortBy => {
+    const { data } = await axios.get(
+        `/artwork?sort=${sortBy === 'newest' && '-'}date_created`
+    );
     return data;
 };
 
-
-export { uploadFile, newArtwork, getListArt, searchByArtwork, getDetailArt, getAll };
+export {
+    uploadFile,
+    newArtwork,
+    getListArt,
+    searchByArtwork,
+    getDetailArt,
+    getAll
+};
