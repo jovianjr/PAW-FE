@@ -22,7 +22,15 @@ import {
     menuOptionsMobile
 } from '@/utils/constants/options/navbar';
 
-const Navbar = () => {
+/**
+ * @typedef NavbarProps
+ * @property {boolean} [search]
+ */
+
+/**
+ * @param {NavbarProps} props
+ */
+const Navbar = ({ search = true }) => {
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
     const { control, handleSubmit, resetField } = useForm({
@@ -59,28 +67,30 @@ const Navbar = () => {
             <Link to="/">
                 <h1 className="text-base font-black lg:text-lg">PAW</h1>
             </Link>
-            <form
-                className="hidden w-1/2 lg:block"
-                onSubmit={handleSubmit(onSubmitSearch)}
-            >
-                <TextField
-                    control={control}
-                    icon={MagnifyingGlassIcon}
-                    name="search"
-                    placeholder="cari artwork"
-                    resetField={() => resetField('search')}
-                    className="w-full"
-                    inputClassName="!py-2.5"
-                    action={
-                        <button
-                            type="submit"
-                            className="w-12 rounded border border-slate-300 bg-transparent py-1 text-sm transition-all hover:bg-slate-200"
-                        >
-                            Go
-                        </button>
-                    }
-                />
-            </form>
+            <RenderIf when={search}>
+                <form
+                    className="hidden w-1/2 lg:block"
+                    onSubmit={handleSubmit(onSubmitSearch)}
+                >
+                    <TextField
+                        control={control}
+                        icon={MagnifyingGlassIcon}
+                        name="search"
+                        placeholder="cari artwork"
+                        resetField={() => resetField('search')}
+                        className="w-full"
+                        inputClassName="!py-2.5"
+                        action={
+                            <button
+                                type="submit"
+                                className="w-12 rounded border border-slate-300 bg-transparent py-1 text-sm transition-all hover:bg-slate-200"
+                            >
+                                Go
+                            </button>
+                        }
+                    />
+                </form>
+            </RenderIf>
             <RenderIf when={!user}>
                 <div className="hidden items-center gap-2 lg:flex">
                     <Button href="/login" variant="secondary">

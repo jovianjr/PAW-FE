@@ -7,6 +7,8 @@ import Footer from '@/views/components/footer';
  * @property {React.ReactNode} children
  * @property {string} [className]
  * @property {string} [containerClassName]
+ * @property {boolean} [search]
+ * @property {boolean} [screen]
  */
 
 /**
@@ -16,6 +18,7 @@ const MainLayout = ({
     children = null,
     className = '',
     containerClassName = '',
+    search = true,
     screen = false
 }) => {
     return (
@@ -25,7 +28,7 @@ const MainLayout = ({
                 containerClassName
             )}
         >
-            <Navbar />
+            <Navbar search={search} />
             <main
                 className={clsx(screen ? 'h-full' : 'min-h-[50vh]', className)}
             >
