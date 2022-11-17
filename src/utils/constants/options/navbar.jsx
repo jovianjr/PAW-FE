@@ -1,6 +1,7 @@
 import {
     ArrowLeftOnRectangleIcon,
     Cog6ToothIcon,
+    PencilSquareIcon,
     UserCircleIcon
 } from '@heroicons/react/24/outline';
 
@@ -27,6 +28,12 @@ export const menuOptions = [
 ];
 
 export const menuOptionsMobile = [
+    {
+        icon: PencilSquareIcon,
+        path: '/art/new',
+        name: 'create',
+        text: 'Create'
+    },
     {
         icon: UserCircleIcon,
         path: '/profile',

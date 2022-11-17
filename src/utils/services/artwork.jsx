@@ -1,11 +1,5 @@
 import axios from '@/utils/helpers/axios';
 
-const searchByArtwork = async title => {
-    const { data } = await axios.get(`/artwork?title=${title}`);
-
-    return data;
-};
-
 const uploadFile = async image => {
     const formData = new FormData();
     formData.append('file', image);
@@ -58,6 +52,16 @@ const getAll = async (sortBy, genre) => {
     if (sortBy === 'newest') sort = '-date_created';
 
     const { data } = await axios.get(`/artwork?sort=${sort}&genre=${genre}`);
+    return data;
+};
+
+const searchByArtwork = async (title, sortBy, genre) => {
+    let sort = 'date_created';
+    if (sortBy === 'newest') sort = '-date_created';
+
+    const { data } = await axios.get(
+        `/artwork?title=${title}&sort=${sort}&genre=${genre}`
+    );
     return data;
 };
 

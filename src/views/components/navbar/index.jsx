@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -33,9 +33,13 @@ import {
 const Navbar = ({ search = true }) => {
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
-    const { control, handleSubmit, resetField } = useForm({
-        defaulValues: { search: '' }
+    const { control, handleSubmit, resetField, setValue } = useForm({
+        defaultValues: { search: '' }
     });
+
+    useEffect(() => {
+        if (typeof search === 'string') setValue('search', search);
+    }, [search]);
 
     const onSubmitSearch = data => {
         navigate(`/search/${data.search}`);
@@ -63,27 +67,24 @@ const Navbar = ({ search = true }) => {
     };
 
     return (
-        <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-slate-300 bg-white py-4 px-6">
+        <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-slate-300 bg-white py-4 pl-4 lg:px-6">
             <Link to="/">
                 <h1 className="text-base font-black lg:text-lg">PAW</h1>
             </Link>
-            <RenderIf when={search}>
-                <form
-                    className="hidden w-1/2 lg:block"
-                    onSubmit={handleSubmit(onSubmitSearch)}
-                >
+            <RenderIf when={!!search}>
+                <form className="w-1/2" onSubmit={handleSubmit(onSubmitSearch)}>
                     <TextField
                         control={control}
                         icon={MagnifyingGlassIcon}
                         name="search"
-                        placeholder="cari artwork"
+                        placeholder="search artwork"
                         resetField={() => resetField('search')}
                         className="w-full"
                         inputClassName="!py-2.5"
                         action={
                             <button
                                 type="submit"
-                                className="w-12 rounded border border-slate-300 bg-transparent py-1 text-sm transition-all hover:bg-slate-200"
+                                className="hidden w-12 rounded border border-slate-300 bg-transparent py-1 text-sm transition-all hover:bg-slate-200 lg:block"
                             >
                                 Go
                             </button>
@@ -125,15 +126,15 @@ const Navbar = ({ search = true }) => {
                     </Dropdown>
                 </div>
             </RenderIf>
-            <div className="absolute right-0 top-0 flex h-full items-center gap-4 lg:hidden">
-                <RenderIf when={!!user}>
+            <div className="flex h-full items-center gap-4 lg:hidden">
+                {/* <RenderIf when={!!user}>
                     <Link
                         to="/art/new"
                         className="text-sm font-semibold hover:underline"
                     >
                         Create
                     </Link>
-                </RenderIf>
+                </RenderIf> */}
                 <Dropdown
                     overlay
                     panelClassName="w-screen px-2 py-2"
