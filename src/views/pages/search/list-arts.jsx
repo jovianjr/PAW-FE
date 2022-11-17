@@ -1,76 +1,28 @@
 import { CardArt } from '@/views/components/card';
+import { useQuery } from '@tanstack/react-query';
+import { searchByArtwork } from '@/utils/services/artwork';
 
-const data = [
-    {
-        img: '/images/1.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/2.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/3.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/4.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/5.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/6.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/7.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/8.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    }
-];
+const data = [];
 
 const CardArts = ({}) => {
+    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
+        ['searchByArtwork'],
+        () => searchByArtwork('params'),
+        {
+            refetchOnWindowFocus: false,
+            refetchInterval: false,
+            onSuccess: res => {},
+            onError: err => {},
+            retry: (failureCount, error) => {
+                if (error?.response?.status === 498) return false;
+                else if (failureCount === 2) return false;
+                else return true;
+            }
+        }
+    );
     return (
         <div className="grid gap-x-4 gap-y-6 lg:grid-cols-4">
-            {data.map((card, index) => {
+            {data?.data?.map((card, index) => {
                 return (
                     <CardArt
                         key={index}
