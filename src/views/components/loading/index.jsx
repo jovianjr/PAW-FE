@@ -21,7 +21,7 @@ const Loading = ({ when = false, text = 'Loading' }) => {
             leaveTo="opacity-0"
             className="relative z-[1000]"
         >
-            <div className="fixed z-[1000] flex h-screen w-screen flex-col items-center justify-center gap-10 bg-white/100">
+            <div className="fixed top-0 left-0 z-[1000] flex h-screen w-screen flex-col items-center justify-center gap-10 bg-white/100">
                 <img
                     src="/images/logo.png"
                     alt="PAW Icon"
