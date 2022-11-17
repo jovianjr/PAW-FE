@@ -1,12 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import {
     MagnifyingGlassIcon,
     ChevronDownIcon,
     ChevronUpDownIcon
 } from '@heroicons/react/24/outline';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import MainLayout from '@/views/layouts/main-layout';
 import TextField from '@/views/elements/text-field';
@@ -44,6 +44,21 @@ const Home = () => {
         setSortBy(val.name);
         return;
     };
+    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
+        ['get-All'],
+        () => getAll(),
+        {
+            refetchOnWindowFocus: false,
+            refetchInterval: false,
+            onSuccess: res => {},
+            onError: err => {},
+            retry: (failureCount, error) => {
+                if (error?.response?.status === 498) return false;
+                else if (failureCount === 2) return false;
+                else return true;
+            }
+        }
+    );
 
     const { data, isLoading, isFetching, isError, isIdle } = useQuery(
         ['get-All', sortBy],
