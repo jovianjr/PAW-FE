@@ -15,6 +15,7 @@ import TextField from '@/views/elements/text-field';
 import { CardArt } from '@/views/components/card';
 import Dropdown from '@/views/components/dropdown';
 import LoadingScreen from '@/views/components/loading';
+import RenderIf from '@/views/components/render-if';
 
 import MainLayout from '@/views/layouts/main-layout';
 
@@ -139,22 +140,28 @@ const Home = () => {
                         </button>
                     </Dropdown>
                 </div>
-                <div className="grid gap-x-4 gap-y-6 px-20 py-4 lg:w-full lg:grid-cols-4">
-                    {data?.data?.map((val, index) => {
-                        return (
-                            <CardArt
-                                key={index}
-                                image={val.imgSrc}
-                                slug={val.slug}
-                                title={val.title}
-                                name={val.user_id?.name}
-                                username={val.user_id?.username}
-                                date_created={val.date_created}
-                            />
-                        );
-                    })}
-                </div>
-                {/* <div className="h-screen"></div> */}
+                <RenderIf when={data?.data?.length === 0}>
+                    <div className="cols-pen item-center col-span-4 mt-10 w-auto text-center text-sm">
+                        Sorry, there is no data found
+                    </div>
+                </RenderIf>
+                <RenderIf when={data?.data?.length !== 0}>
+                    <div className="grid gap-x-4 gap-y-6 px-20 py-4 lg:w-full lg:grid-cols-4">
+                        {data?.data?.map((val, index) => {
+                            return (
+                                <CardArt
+                                    key={index}
+                                    image={val.imgSrc}
+                                    slug={val.slug}
+                                    title={val.title}
+                                    name={val.user_id?.name}
+                                    username={val.user_id?.username}
+                                    date_created={val.date_created}
+                                />
+                            );
+                        })}
+                    </div>
+                </RenderIf>
             </MainLayout>
         </>
     );
