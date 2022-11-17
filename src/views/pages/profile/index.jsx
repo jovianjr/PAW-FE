@@ -83,7 +83,7 @@ const User = () => {
                 >
                     <Cog6ToothIcon className="absolute top-2  right-3 h-4 w-4 " />
                     <img
-                        src="https://picsum.photos/200/300"
+                        src={user.image ?? '-'}
                         className="aspect-square w-40 rounded-full"
                     />
 
