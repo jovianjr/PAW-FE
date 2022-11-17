@@ -47,4 +47,10 @@ const getListArt = async user_id => {
     return data;
 };
 
-export { uploadFile, newArtwork, getListArt, searchByArtwork };
+const getDetailArt = async () => {
+    const { data } = await axios.get('/artwork/slug/bali');
+
+    return data;
+};
+
+export { uploadFile, newArtwork, getListArt, searchByArtwork, getDetailArt };
