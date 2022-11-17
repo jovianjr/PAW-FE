@@ -2,6 +2,7 @@ import { CardArt } from '@/views/components/card';
 import { useQuery } from '@tanstack/react-query';
 import { searchByArtwork } from '@/utils/services/artwork';
 import { useParams } from 'react-router-dom';
+import RenderIf from '@/views/components/render-if';
 
 const data = [];
 
@@ -24,6 +25,11 @@ const CardArts = ({}) => {
     );
     return (
         <div className="grid gap-x-4 gap-y-6 lg:grid-cols-4">
+            <RenderIf>
+                <div className="cols-pen item-center col-span-4 mt-10 w-auto text-center text-sm">
+                    Sorry, there is no such keyword for artwork
+                </div>
+            </RenderIf>
             {data?.data?.map((card, index) => {
                 return (
                     <CardArt

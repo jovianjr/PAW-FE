@@ -2,6 +2,7 @@ import { CardUser } from '@/views/components/card';
 import { useQuery } from '@tanstack/react-query';
 import { searchByUser } from '@/utils/services/user';
 import { useParams } from 'react-router-dom';
+import RenderIf from '@/views/components/render-if';
 
 const data = [];
 
@@ -24,6 +25,11 @@ const CardUsers = () => {
     );
     return (
         <div className="mx-auto grid gap-x-20 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
+            <RenderIf>
+                <div className="item-center col-span-3 mt-10 w-auto text-center text-sm">
+                    Sorry, there is no such keyword for user
+                </div>
+            </RenderIf>
             {data?.data?.map((card, index) => (
                 <CardUser
                     key={index}
