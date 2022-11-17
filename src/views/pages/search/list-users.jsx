@@ -1,63 +1,31 @@
 import { CardUser } from '@/views/components/card';
+import { useQuery } from '@tanstack/react-query';
+import { searchByUser } from '@/utils/services/user';
 
-const data = [
-    {
-        img: '/images/1.png',
-        username: 'peterDrucker',
-        name: 'John Doe',
-        title: 'manager'
-    },
-    {
-        img: '/images/2.png',
-        username: 'peterDrucker',
-        name: 'John Doe',
-        title: 'manager'
-    },
-    {
-        img: '/images/3.png',
-        username: 'peterDrucker',
-        name: 'John Doe',
-        title: 'manager'
-    },
-    {
-        img: '/images/4.png',
-        username: 'peterDrucker',
-        name: 'John Doe',
-        title: 'manager'
-    },
-    {
-        img: '/images/5.png',
-        username: 'peterDrucker',
-        name: 'John Doe',
-        title: 'manager'
-    },
-    {
-        img: '/images/6.png',
-        username: 'peterDrucker',
-        name: 'John Doe',
-        title: 'manager'
-    },
-    {
-        img: '/images/7.png',
-        username: 'peterDrucker',
-        name: 'John Doe',
-        title: 'manager'
-    },
-    {
-        img: '/images/8.png',
-        username: 'peterDrucker',
-        name: 'John Doe',
-        title: 'manager'
-    }
-];
+const data = [];
 
 const CardUsers = () => {
+    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
+        ['searchByUser'],
+        () => searchByUser('wa'),
+        {
+            refetchOnWindowFocus: false,
+            refetchInterval: false,
+            onSuccess: res => {},
+            onError: err => {},
+            retry: (failureCount, error) => {
+                if (error?.response?.status === 498) return false;
+                else if (failureCount === 2) return false;
+                else return true;
+            }
+        }
+    );
     return (
         <div className="mx-auto grid gap-x-20 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
-            {data.map((card, index) => (
+            {data?.data?.map((card, index) => (
                 <CardUser
                     key={index}
-                    image={card.img}
+                    image={card.image}
                     username={card.username}
                     name={card.name}
                     text={card.title}

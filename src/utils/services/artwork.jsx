@@ -1,5 +1,11 @@
 import axios from '@/utils/helpers/axios';
 
+const searchByArtwork = async title => {
+    const { data } = await axios.get(`/artwork?title=${title}`);
+
+    return data;
+};
+
 const uploadFile = async image => {
     const formData = new FormData();
     formData.append('file', image);
@@ -41,4 +47,4 @@ const getListArt = async user_id => {
     return data;
 };
 
-export { uploadFile, newArtwork, getListArt };
+export { uploadFile, newArtwork, getListArt, searchByArtwork };
