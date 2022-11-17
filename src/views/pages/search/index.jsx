@@ -1,8 +1,9 @@
-import MainLayout from '@/views/layouts/main-layout';
 import { Tab } from '@headlessui/react';
+import { useState } from 'react';
 import clsx from 'clsx';
 import ListArts from '@/views/pages/search/list-arts';
 import ListUsers from '@/views/pages/search/list-users';
+import MainLayout from '@/views/layouts/main-layout';
 
 const tabItems = [
     {
@@ -16,6 +17,8 @@ const tabItems = [
 ];
 
 const Search = () => {
+    const [countOfArtwork, setCountArtwork] = useState(0);
+    const [countOfUser, setCountUser] = useState(0);
     return (
         <MainLayout className="min-h-screen pb-20">
             <Tab.Group>
@@ -34,7 +37,7 @@ const Search = () => {
                         >
                             {val.tabName}
                             <span className="ml-2 rounded-lg bg-slate-200 px-2 text-xs">
-                                75
+                                {index === 0 ? countOfArtwork : countOfUser}
                             </span>
                         </Tab>
                     ))}
@@ -43,7 +46,9 @@ const Search = () => {
                     {tabItems?.map((item, index) => {
                         return (
                             <Tab.Panel key={index}>
-                                <item.element />
+                                <item.element
+                                    {...{ setCountArtwork, setCountUser }}
+                                />
                             </Tab.Panel>
                         );
                     })}
