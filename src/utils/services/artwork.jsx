@@ -39,4 +39,10 @@ const newArtwork = async ({
     return data;
 };
 
-export { uploadFile, newArtwork };
+const getDetailArt = async () => {
+    const { data } = await axios.get('/artwork/slug/bali');
+
+    return data;
+};
+
+export { uploadFile, newArtwork, getDetailArt };
