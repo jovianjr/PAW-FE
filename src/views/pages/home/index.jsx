@@ -40,7 +40,7 @@ const menuOptions = [
 const Home = () => {
     const navigate = useNavigate();
     const [sortBy, setSortBy] = useState('newest');
-    const [genre, setGenre] = useState('animal');
+    const [genre, setGenre] = useState('');
     const { control, handleSubmit, resetField } = useForm({
         defaulValues: { search: '' }
     });
@@ -127,21 +127,23 @@ const Home = () => {
                     </div>
                     <Dropdown
                         options={menuOptions}
-                        itemClassName="pr-10 text-xs font-small"
+                        itemClassName="pr-10 text-xs font-small hover:bg-slate-100 hover:text-slate-700"
                         onClick={val => onClickDropdown(val)}
+                        currentItem={sortBy}
+                        activeClassName="!bg-slate-300"
                     >
-                        <button
+                        <span
                             type="button"
-                            className="gap 4 font-small text-black-700 hidden w-24 items-center rounded border border-slate-300 bg-transparent bg-white px-4 py-2 text-xs transition-all hover:border-black
-                    hover:bg-black hover:text-white lg:flex"
+                            className="font-sm hidden w-28 items-center justify-between gap-4 rounded border border-slate-300 bg-transparent bg-white stroke-slate-700 px-4 py-2 text-xs text-slate-700 transition-all hover:border-slate-500
+                    hover:bg-slate-500 hover:stroke-white hover:text-white lg:flex"
                         >
                             Sort by
-                            <ChevronDownIcon className="h-4 w-4 text-slate-900 hover:text-white" />
-                        </button>
+                            <ChevronDownIcon className="h-4 w-4 stroke-inherit" />
+                        </span>
                     </Dropdown>
                 </div>
                 <RenderIf when={data?.data?.length === 0}>
-                    <div className="cols-pen item-center col-span-4 mt-10 w-auto text-center text-sm">
+                    <div className="cols-pen item-center col-span-4 mt-20 w-auto text-center text-sm">
                         Sorry, there is no data found
                     </div>
                 </RenderIf>
