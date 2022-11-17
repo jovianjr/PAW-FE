@@ -1,89 +1,57 @@
 import { CardArt } from '@/views/components/card';
+import { useQuery } from '@tanstack/react-query';
+import { searchByArtwork } from '@/utils/services/artwork';
+import { useParams } from 'react-router-dom';
+import RenderIf from '@/views/components/render-if';
+import LoadingScreen from '@/views/components/loading';
 
-const data = [
-    {
-        img: '/images/1.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/2.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/3.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/4.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/5.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/6.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/7.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    },
-    {
-        img: '/images/8.png',
-        slug: 'fuji-mountain',
-        title: 'Fuji Mountain',
-        name: 'John Doe',
-        username: 'johndoe',
-        date_created: '01 jan 2022'
-    }
-];
+const data = [];
 
-const CardArts = ({}) => {
+const CardArts = ({ setCountArtwork }) => {
+    const params = useParams();
+    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
+        ['searchByArtwork'],
+        () => searchByArtwork(params.keyword),
+        {
+            refetchOnWindowFocus: false,
+            refetchInterval: false,
+            onSuccess: res => {
+                setCountArtwork(res.data.length);
+            },
+            onError: err => {},
+            retry: (failureCount, error) => {
+                if (error?.response?.status === 498) return false;
+                else if (failureCount === 2) return false;
+                else return true;
+            }
+        }
+    );
     return (
-        <div className="grid gap-x-4 gap-y-6 lg:grid-cols-4">
-            {data.map((card, index) => {
-                return (
-                    <CardArt
-                        key={index}
-                        image={card.img}
-                        slug={card.slug}
-                        title={card.title}
-                        name={card.name}
-                        username={card.username}
-                        date_created={card.date_created}
-                    />
-                );
-            })}
-        </div>
+        <>
+            <LoadingScreen when={isLoading || isFetching} text="searching..." />
+            <div className="grid gap-x-4 gap-y-6 lg:grid-cols-4">
+                <RenderIf when={data?.data?.length === 0}>
+                    <div className="cols-pen item-center col-span-4 mt-10 w-auto text-center text-sm">
+                        Sorry, there is no such keyword for artwork
+                    </div>
+                </RenderIf>
+                <RenderIf when={data?.data?.length !== 0}>
+                    {data?.data?.map((card, index) => {
+                        return (
+                            <CardArt
+                                key={index}
+                                image={card.imgSrc}
+                                slug={card.slug}
+                                title={card.title}
+                                name={card.name}
+                                username={card.username}
+                                date_created={card.date_created}
+                            />
+                        );
+                    })}
+                </RenderIf>
+            </div>
+        </>
     );
 };
 
