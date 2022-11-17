@@ -53,11 +53,11 @@ const getDetailArt = async () => {
     return data;
 };
 
-const getAll = async sortBy => {
+const getAll = async (sortBy, genre) => {
     let sort = 'date_created';
     if (sortBy === 'newest') sort = '-date_created';
 
-    const { data } = await axios.get(`/artwork?sort=${sort}`);
+    const { data } = await axios.get(`/artwork?sort=${sort}&genre=${genre}`);
     return data;
 };
 
