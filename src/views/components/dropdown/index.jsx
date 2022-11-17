@@ -70,6 +70,7 @@ const Dropdown = ({
                         >
                             {options.map((val, index) => {
                                 const Tag = false ? 'a' : 'button';
+                                console.log(!!val.icon);
                                 return (
                                     <Tag
                                         key={index}
@@ -80,7 +81,7 @@ const Dropdown = ({
                                         )}
                                         onClick={() => onClick(val)}
                                     >
-                                        <RenderIf when={val.icon}>
+                                        <RenderIf when={!!val.icon}>
                                             <val.icon className="h-5 w-5 stroke-inherit" />
                                         </RenderIf>
                                         {val.text}
