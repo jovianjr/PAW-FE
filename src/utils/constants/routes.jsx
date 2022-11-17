@@ -45,7 +45,7 @@ const routes = createBrowserRouter([
         errorElement: <ErrorPage />
     },
     {
-        path: '/:id',
+        path: '/:username',
         element: <ProfilePage />
     },
     {

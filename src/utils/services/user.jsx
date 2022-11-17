@@ -12,6 +12,11 @@ const getUser = async () => {
     return data;
 };
 
+const getUserByUsername = async username => {
+    const { data } = await axios.get(`/user/${username}`, { headers: null });
+    return data;
+};
+
 const updateUser = async ({
     image,
     name,
@@ -36,4 +41,4 @@ const updateUser = async ({
     return data;
 };
 
-export { getUser, searchByUser, updateUser };
+export { getUser, searchByUser, getUserByUsername, updateUser };
