@@ -85,7 +85,7 @@ const Dropdown = ({
                                             itemClassName,
                                             val.className
                                         )}
-                                        onClick={() => onClick(val)}
+                                        onClick={() => onClick(val, index)}
                                     >
                                         <RenderIf when={!!val.icon}>
                                             {!!val.icon ? (
