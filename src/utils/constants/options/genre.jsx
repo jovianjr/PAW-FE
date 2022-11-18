@@ -1,9 +1,9 @@
 const genreOptions = [
     { value: 'abstract', label: 'Abstract' },
-    { value: 'animal', label: 'Animal' },
-    { value: 'digial', label: 'Digital' },
-    { value: 'logo', label: 'Logo' },
-    { value: 'photography', label: 'Photography' }
+    { value: 'realisme', label: 'Realisme' },
+    { value: 'naturalisme', label: 'Naturalisme' },
+    { value: 'surealisme', label: 'Surealisme' },
+    { value: 'impresionisme', label: 'Impresionisme' }
 ];
 
 export default genreOptions;
