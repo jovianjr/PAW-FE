@@ -8,16 +8,36 @@ import PasswordSettings from '@/views/pages/profile/settings/password';
 
 import { AuthContext } from '@/utils/context/auth';
 import jwt from '@/utils/services/jwt';
+import Dropdown from '@/views/components/dropdown';
 
 const tabItems = [
-    { name: 'General settings', element: GeneralSettings },
-    { name: 'Password', element: PasswordSettings }
+    { text: 'General settings', name: 'general', element: GeneralSettings },
+    { text: 'Password', name: 'password', element: PasswordSettings }
+];
+
+const menuOptions = [
+    {
+        icon: null,
+        path: null,
+        name: 'general',
+        text: 'General Settings'
+    },
+    {
+        icon: null,
+        path: null,
+        name: 'password',
+        text: 'Change Password'
+    }
 ];
 
 const User = () => {
     const navigate = useNavigate();
     const { user, logout } = useContext(AuthContext);
     const [currentTab, setCurrentTab] = useState(0);
+
+    const currentItem = useMemo(() => {
+        return tabItems[currentTab].name;
+    }, [currentTab]);
 
     const Element = useMemo(() => {
         return tabItems[currentTab].element;
@@ -29,10 +49,18 @@ const User = () => {
         navigate('/');
     };
 
+    const onClickDropdown = (val, index) => {
+        setCurrentTab(index);
+        return;
+    };
+
     return (
-        <MainLayout screen className="overflow-hidden">
-            <div className="flex h-full w-full gap-10 bg-slate-200 py-3 px-4">
-                <div className="hidden h-full w-1/5 flex-col items-center gap-6 rounded bg-white py-8 px-6 lg:flex">
+        <MainLayout
+            screen
+            containerClassName="!h-full lg:!h-screen overflow-hidden"
+        >
+            <div className="flex h-full w-full flex-col gap-10 py-3 lg:flex-row lg:bg-slate-200 lg:px-4">
+                <div className="flex h-full w-full flex-col items-center gap-6 rounded bg-white py-8 px-6 lg:w-1/5">
                     <img
                         src={user?.image}
                         className="aspect-square w-40 rounded-full object-cover ring ring-slate-200"
@@ -46,7 +74,7 @@ const User = () => {
                             {user?.title}
                         </h2>
                     </div>
-                    <div className="flex w-full flex-col items-start gap-6">
+                    <div className="hidden w-full flex-col items-start gap-6 lg:flex">
                         {tabItems.map((val, index) => {
                             return (
                                 <h3
@@ -59,7 +87,7 @@ const User = () => {
                                     )}
                                     onClick={() => setCurrentTab(index)}
                                 >
-                                    {val.name}
+                                    {val.text}
                                 </h3>
                             );
                         })}
@@ -71,8 +99,19 @@ const User = () => {
                         </button>
                     </div>
                 </div>
+                <Dropdown
+                    options={menuOptions}
+                    className="flex h-10 w-full items-center border-y border-purple-700 bg-purple-50 py-4 px-4 text-start text-xs font-semibold text-purple-700 lg:hidden"
+                    itemClassName="pr-10 text-xs font-small"
+                    panelClassName="w-full"
+                    currentItem={currentItem}
+                    activeClassName="!bg-purple-100"
+                    onClick={(val, index) => onClickDropdown(val, index)}
+                >
+                    General Settings
+                </Dropdown>
 
-                <div className="h-full w-4/5 rounded bg-white py-8 px-10">
+                <div className="h-full w-full rounded bg-white py-8 px-10 lg:w-4/5">
                     <Element />
                 </div>
             </div>

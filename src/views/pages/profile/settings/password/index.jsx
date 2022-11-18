@@ -58,17 +58,17 @@ const User = () => {
 
 const Row = ({ control, name, fieldName, placeholder, textarea = false }) => {
     return (
-        <div className="grid grid-cols-12 items-start py-1">
-            <div className="col-span-3 pt-3">
+        <div className="grid grid-cols-12 items-start gap-2 py-1 lg:gap-0">
+            <div className="col-span-12 lg:col-span-3 lg:pt-3">
                 <label className="text-sm">{fieldName}</label>
             </div>
-            <div className="col-span-9 h-full">
+            <div className="col-span-12 h-full lg:col-span-9">
                 <TextField
                     control={control}
                     name={name}
                     fieldName={fieldName}
                     placeholder={placeholder}
-                    className="w-2/3"
+                    className="w-full lg:w-2/3"
                     inputClassName="border-none !text-sm"
                     rules={{ required: true }}
                     textarea={textarea}

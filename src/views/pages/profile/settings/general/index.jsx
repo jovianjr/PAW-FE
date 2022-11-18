@@ -107,12 +107,12 @@ const GeneralSettings = () => {
                 >
                     <div className="flex flex-col">
                         <div className="grid grid-cols-12 items-center py-4">
-                            <div className="col-span-3">
+                            <div className="col-span-12 lg:col-span-3">
                                 <label className="text-sm">
                                     Profile picture
                                 </label>
                             </div>
-                            <div className="col-span-9 flex h-full items-center gap-4">
+                            <div className="col-span-12 flex h-full items-center gap-4 lg:col-span-9">
                                 <input
                                     className="hidden"
                                     name="photo"
@@ -125,7 +125,7 @@ const GeneralSettings = () => {
                                     }
                                 ></input>
                                 <label
-                                    className="flex cursor-pointer items-center gap-2 rounded p-4 transition-all hover:bg-purple-100"
+                                    className="flex cursor-pointer items-center gap-2 rounded py-6 transition-all hover:bg-purple-100 lg:p-4"
                                     htmlFor="upload-photo"
                                 >
                                     <div className="h-full rounded border border-purple-300 py-3 px-3">
@@ -143,7 +143,7 @@ const GeneralSettings = () => {
                                     }
                                 >
                                     <div className="grid grid-cols-12 items-center">
-                                        <div className="col-span-3"></div>
+                                        <div className="col-span-12 lg:col-span-3"></div>
                                         <div className="col-span-9 h-full">
                                             <img
                                                 src={image}
@@ -165,17 +165,19 @@ const GeneralSettings = () => {
                     </div>
 
                     <div className="grid grid-cols-12 items-start">
-                        <div className="col-span-3">
+                        <div className="col-span-12 lg:col-span-3">
                             <label className="text-sm">Email</label>
                         </div>
-                        <div className="col-span-9">{user?.email ?? '-'}</div>
+                        <div className="col-span-12 lg:col-span-9">
+                            {user?.email ?? '-'}
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-12 items-start">
-                        <div className="col-span-3">
+                        <div className="col-span-12 lg:col-span-3">
                             <label className="text-sm">Username</label>
                         </div>
-                        <div className="col-span-9">
+                        <div className="col-span-12 lg:col-span-9">
                             {user?.username ?? '-'}
                         </div>
                     </div>
@@ -260,16 +262,16 @@ const Row = ({
 }) => {
     return (
         <div className="grid grid-cols-12 items-start py-1">
-            <div className="col-span-3 pt-3">
+            <div className="col-span-12 pt-3 lg:col-span-3">
                 <label className="text-sm">{fieldName}</label>
             </div>
-            <div className="col-span-9 h-full">
+            <div className="col-span-12 h-full lg:col-span-9">
                 <TextField
                     control={control}
                     name={name}
                     fieldName={fieldName}
                     placeholder={placeholder}
-                    className="w-2/3"
+                    className="w-full lg:w-2/3"
                     inputClassName="border-none !text-sm"
                     rules={{ required: required }}
                     textarea={textarea}
