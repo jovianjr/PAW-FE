@@ -3,11 +3,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getDetailArt } from '@/utils/services/artwork';
 import MainLayout from '@/views/layouts/main-layout';
+import { useParams } from 'react-router-dom';
 
 const ArtDetail = () => {
+    const params = useParams();
     const { data, isLoading, isFetching, isError, isIdle } = useQuery(
         ['get-detail-art'],
-        () => getDetailArt(),
+        () => getDetailArt(params.slug),
         {
             refetchOnWindowFocus: false,
             refetchInterval: false,
@@ -32,7 +34,7 @@ const ArtDetail = () => {
                     <div className="flex gap-2">
                         <img
                             class="aspect-square w-8 rounded-full object-cover lg:w-14"
-                            src={data?.data?.user_id.image}
+                            src={data?.data?.user_id?.image}
                         />
                         <span className="flex flex-col">
                             <p className="text-xs font-bold lg:text-2xl lg:font-semibold">

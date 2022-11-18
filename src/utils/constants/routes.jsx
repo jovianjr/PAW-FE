@@ -121,7 +121,7 @@ const routes = createBrowserRouter([
     },
     ,
     {
-        path: '/art/:id',
+        path: '/art/:slug',
         element: <ArtDetailPage />
     },
     {
