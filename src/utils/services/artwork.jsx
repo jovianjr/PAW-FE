@@ -41,8 +41,8 @@ const getListArt = async user_id => {
     return data;
 };
 
-const getDetailArt = async () => {
-    const { data } = await axios.get('/artwork/slug/bali');
+const getDetailArt = async slug => {
+    const { data } = await axios.get(`/artwork/slug/${slug}`);
 
     return data;
 };
