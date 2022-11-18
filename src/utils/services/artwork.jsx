@@ -65,11 +65,18 @@ const searchByArtwork = async (title, sortBy, genre) => {
     return data;
 };
 
+const deleteArt = async id => {
+    const { data } = await axios.delete(`/artwork/${id}`);
+
+    return data;
+};
+
 export {
     uploadFile,
     newArtwork,
     getListArt,
     searchByArtwork,
     getDetailArt,
-    getAll
+    getAll,
+    deleteArt
 };
