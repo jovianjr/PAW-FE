@@ -15,6 +15,7 @@ import RenderIf from '@/views/components/render-if';
 
 import { getUserByUsername } from '@/utils/services/user';
 import { getListArt } from '@/utils/services/artwork';
+import LoadingScreen from '@/views/components/loading';
 
 const User = ({ username = null, isLoggedIn = false }) => {
     const params = useParams();
@@ -54,21 +55,41 @@ const User = ({ username = null, isLoggedIn = false }) => {
         <MainLayout screen className="">
             <div className="flex h-full gap-6 bg-slate-200 px-10 py-6">
                 <div className="w-3/4">
-                    <div className="grid !h-auto max-h-screen gap-x-4 gap-y-6 overflow-y-auto lg:grid-cols-4">
-                        {data?.data?.map((val, index) => {
-                            return (
-                                <CardArt
-                                    key={index}
-                                    image={val.imgSrc}
-                                    slug={val.slug}
-                                    title={val.title}
-                                    name={val.user_id?.name}
-                                    username={val.user_id?.username}
-                                    date_created={val.date_created}
-                                />
-                            );
-                        })}
-                    </div>
+                    <>
+                        <LoadingScreen
+                            when={
+                                isLoading ||
+                                isFetching ||
+                                getUser.isLoading ||
+                                getUser.isFetching
+                            }
+                            text="getting your artworks..."
+                        />
+
+                        <div className="grid !h-auto max-h-screen gap-x-4 gap-y-6 overflow-y-auto lg:grid-cols-4">
+                            <RenderIf when={data?.data?.length === 0}>
+                                <div className="cols-pen item-center col-span-4 mt-10 w-auto text-center text-sm">
+                                    There is no any artwork yet. Let's try to
+                                    create one!
+                                </div>
+                            </RenderIf>
+                            <RenderIf when={data?.data?.length !== 0}>
+                                {data?.data?.map((val, index) => {
+                                    return (
+                                        <CardArt
+                                            key={index}
+                                            image={val.imgSrc}
+                                            slug={val.slug}
+                                            title={val.title}
+                                            name={val.user_id?.name}
+                                            username={val.user_id?.username}
+                                            date_created={val.date_created}
+                                        />
+                                    );
+                                })}
+                            </RenderIf>
+                        </div>
+                    </>
                 </div>
                 <div className="flex h-full w-1/4 flex-col items-center gap-6 bg-white py-9 px-6">
                     <RenderIf when={isLoggedIn}>
