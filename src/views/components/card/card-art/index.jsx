@@ -26,7 +26,7 @@ const CardArt = ({
         <div className="group w-full hover:cursor-pointer hover:transition-all">
             <Link to={`/art/${slug}`}>
                 <div className="relative aspect-[2.75/2] w-full overflow-hidden rounded-lg">
-                    <img className="h-full w-full" src={image} />
+                    <img className="h-full w-full object-cover" src={image} />
                     <div className="absolute top-0 left-0 h-full w-full bg-gradient-to-t from-slate-900 to-transparent opacity-0 transition-all duration-500 group-hover:opacity-80"></div>
                     <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-xs text-white opacity-0 transition-all group-hover:opacity-100">
                         view detail
