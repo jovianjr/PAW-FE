@@ -32,6 +32,7 @@ const Dropdown = ({
     itemClassName = '',
     activeClassName = '',
     overlay = false,
+    closeOnClick = false,
     onClick = () => {},
     ExtendedOptions = () => {}
 }) => {
@@ -85,7 +86,10 @@ const Dropdown = ({
                                             itemClassName,
                                             val.className
                                         )}
-                                        onClick={() => onClick(val, index)}
+                                        onClick={() => {
+                                            if (closeOnClick) close();
+                                            onClick(val, index, close);
+                                        }}
                                     >
                                         <RenderIf when={!!val.icon}>
                                             {!!val.icon ? (
