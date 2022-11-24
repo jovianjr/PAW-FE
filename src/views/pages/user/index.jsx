@@ -1,24 +1,29 @@
+import { Cog6ToothIcon, ChevronDownIcon } from '@heroicons/react/24/solid';
+import { useQuery } from '@tanstack/react-query';
+import clsx from 'clsx';
+import moment from 'moment';
+import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import {
     FacebookIcon,
     InstagramIcon,
     TwitterIcon,
     YoutubeIcon
 } from '@/views/elements/icons';
-import { useQuery } from '@tanstack/react-query';
-import { Cog6ToothIcon, BanknotesIcon } from '@heroicons/react/24/solid';
-import { useParams } from 'react-router-dom';
-import moment from 'moment';
-
-import MainLayout from '@/views/layouts/main-layout';
 import { CardArt } from '@/views/components/card';
+import LoadingScreen from '@/views/components/loading';
 import RenderIf from '@/views/components/render-if';
 
+import MainLayout from '@/views/layouts/main-layout';
 import { getUserByUsername } from '@/utils/services/user';
 import { getListArt } from '@/utils/services/artwork';
-import LoadingScreen from '@/views/components/loading';
 
 const User = ({ username = null, isLoggedIn = false }) => {
+    const navigate = useNavigate();
     const params = useParams();
+    const [lihatDetail, setLihatDetail] = useState(false);
+
     const getUser = useQuery(
         ['get-user', username ?? params.username],
         () => getUserByUsername(username ?? params.username),
@@ -35,7 +40,7 @@ const User = ({ username = null, isLoggedIn = false }) => {
         }
     );
 
-    const { data, isLoading, isFetching, isError, isIdle } = useQuery(
+    const { data, isLoading, isFetching } = useQuery(
         ['get-art-by-user', getUser.data?.data?.username],
         () => getListArt(getUser.data?.data?._id),
         {
@@ -52,9 +57,9 @@ const User = ({ username = null, isLoggedIn = false }) => {
     );
 
     return (
-        <MainLayout screen className="">
-            <div className="flex h-full gap-6 bg-slate-200 px-10 py-6">
-                <div className="w-3/4">
+        <MainLayout screen containerClassName="!h-full lg:!h-screen">
+            <div className="flex h-full flex-col-reverse gap-6 bg-slate-100 lg:flex-row lg:px-10 lg:py-6">
+                <div className="w-full px-6 py-8 lg:w-3/4 lg:p-0">
                     <>
                         <LoadingScreen
                             when={
@@ -91,9 +96,12 @@ const User = ({ username = null, isLoggedIn = false }) => {
                         </div>
                     </>
                 </div>
-                <div className="flex h-full w-1/4 flex-col items-center gap-6 bg-white py-9 px-6">
+                <div className="relative flex h-full w-full flex-col items-center gap-6 bg-white py-9 px-6 lg:w-1/4">
                     <RenderIf when={isLoggedIn}>
-                        <Cog6ToothIcon className="absolute top-2  right-3 h-4 w-4 " />
+                        <Cog6ToothIcon
+                            className="absolute top-4 right-3 h-6 w-6 cursor-pointer lg:top-2 lg:right-3 lg:h-4 lg:w-4"
+                            onClick={() => navigate('/profile/settings')}
+                        />
                     </RenderIf>
                     <img
                         src={
@@ -110,57 +118,87 @@ const User = ({ username = null, isLoggedIn = false }) => {
                         <h2 className="text-sm">{getUser.data?.data?.title}</h2>
                     </div>
 
-                    <div className="flex h-auto w-auto  flex-row items-start gap-[8px] bg-white ">
-                        <RenderIf when={!!getUser.data?.data?.instagram}>
-                            <a
-                                href={`https://instagram.com/${getUser.data?.data?.instagram}`}
-                            >
-                                <InstagramIcon />
-                            </a>
-                        </RenderIf>
-                        <RenderIf when={!!getUser.data?.data?.twitter}>
-                            <a
-                                href={`https://twitter.com/${getUser.data?.data?.twitter}`}
-                            >
-                                <TwitterIcon />
-                            </a>
-                        </RenderIf>
-                        <RenderIf when={!!getUser.data?.data?.youtube}>
-                            <a
-                                href={`https://instagram.com/${getUser.data?.data?.youtube}`}
-                            >
-                                <YoutubeIcon />
-                            </a>
-                        </RenderIf>
-                        <RenderIf when={!!getUser.data?.data?.facebook}>
-                            <a
-                                href={`https://youtube.com/${getUser.data?.data?.facebook}`}
-                            >
-                                <FacebookIcon />
-                            </a>
-                        </RenderIf>
-                    </div>
-
-                    <RenderIf when={!!getUser.data?.data?.bio}>
-                        <div className="flex h-auto w-full flex-col items-start gap-2 bg-white ">
-                            <h3 className="text-start text-xs font-normal not-italic leading-5">
-                                Bio
-                            </h3>
-                            <h4 className="text-sm font-normal not-italic leading-5">
-                                {getUser.data?.data?.bio}
-                            </h4>
-                        </div>
+                    <DetailUser {...{ getUser }} className="hidden lg:flex" />
+                    <button
+                        className="flex items-center justify-center gap-2 text-xs text-slate-700 hover:underline lg:hidden"
+                        onClick={() => {
+                            setLihatDetail(!lihatDetail);
+                        }}
+                    >
+                        {!lihatDetail ? 'View Details' : 'Less Detail'}
+                        {!lihatDetail ? (
+                            <ChevronDownIcon className="h-4 w-4" />
+                        ) : null}
+                        {lihatDetail ? (
+                            <ChevronDownIcon className="h-4 w-4 rotate-180" />
+                        ) : null}
+                    </button>
+                    <RenderIf when={lihatDetail}>
+                        <DetailUser {...{ getUser }} className="lg:hidden" />
                     </RenderIf>
-
-                    <h5 className=" text-center text-xs font-normal not-italic leading-4">
-                        Member since:
-                        {moment
-                            .utc(getUser.data?.data?.createdAt)
-                            .format('DD MMMM YYYY')}
-                    </h5>
                 </div>
             </div>
         </MainLayout>
+    );
+};
+
+const DetailUser = ({ getUser, className }) => {
+    return (
+        <div
+            className={clsx(
+                'flex h-full w-full flex-col items-center gap-6',
+                className
+            )}
+        >
+            <div className="flex h-auto w-auto  flex-row items-start gap-[8px] bg-white ">
+                <RenderIf when={!!getUser.data?.data?.instagram}>
+                    <a
+                        href={`https://instagram.com/${getUser.data?.data?.instagram}`}
+                    >
+                        <InstagramIcon />
+                    </a>
+                </RenderIf>
+                <RenderIf when={!!getUser.data?.data?.twitter}>
+                    <a
+                        href={`https://twitter.com/${getUser.data?.data?.twitter}`}
+                    >
+                        <TwitterIcon />
+                    </a>
+                </RenderIf>
+                <RenderIf when={!!getUser.data?.data?.youtube}>
+                    <a
+                        href={`https://instagram.com/${getUser.data?.data?.youtube}`}
+                    >
+                        <YoutubeIcon />
+                    </a>
+                </RenderIf>
+                <RenderIf when={!!getUser.data?.data?.facebook}>
+                    <a
+                        href={`https://youtube.com/${getUser.data?.data?.facebook}`}
+                    >
+                        <FacebookIcon />
+                    </a>
+                </RenderIf>
+            </div>
+
+            <RenderIf when={!!getUser.data?.data?.bio}>
+                <div className="flex h-auto w-full flex-col items-start gap-2 bg-white ">
+                    <h3 className="text-start text-xs font-normal not-italic leading-5">
+                        Bio
+                    </h3>
+                    <h4 className="text-sm font-normal not-italic leading-5">
+                        {getUser.data?.data?.bio}
+                    </h4>
+                </div>
+            </RenderIf>
+
+            <h5 className=" text-center text-xs font-normal not-italic leading-4">
+                Member since:
+                {moment
+                    .utc(getUser.data?.data?.createdAt)
+                    .format('DD MMMM YYYY')}
+            </h5>
+        </div>
     );
 };
 

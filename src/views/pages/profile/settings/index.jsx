@@ -1,3 +1,4 @@
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useMemo, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -101,17 +102,18 @@ const User = () => {
                 </div>
                 <Dropdown
                     options={menuOptions}
-                    className="flex h-10 w-full items-center border-y border-purple-700 bg-purple-50 py-4 px-4 text-start text-xs font-semibold text-purple-700 lg:hidden"
+                    className="flex h-10 w-full items-center justify-between border-y border-purple-700 bg-purple-50 py-4 px-4 text-start text-xs font-semibold text-purple-700 lg:hidden"
                     itemClassName="pr-10 text-xs font-small"
                     panelClassName="w-full"
                     currentItem={currentItem}
                     activeClassName="!bg-purple-100"
                     onClick={(val, index) => onClickDropdown(val, index)}
+                    closeOnClick={true}
                 >
-                    General Settings
+                    {tabItems[currentTab].text}{' '}
+                    <ChevronDownIcon className="h-4 w-4 stroke-purple-700" />
                 </Dropdown>
-
-                <div className="h-full w-full rounded bg-white py-8 px-10 lg:w-4/5">
+                <div className="h-full w-full rounded bg-white px-4 py-5 lg:w-4/5 lg:py-8 lg:px-10">
                     <Element />
                 </div>
             </div>

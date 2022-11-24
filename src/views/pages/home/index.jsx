@@ -77,38 +77,42 @@ const Home = () => {
                 text="getting art..."
             />
             <MainLayout search={false} className="min-h-screen">
-                <form
-                    className="flex w-full items-center gap-0 px-5 py-4 lg:px-20"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
-                    <TextField
-                        control={control}
-                        icon={MagnifyingGlassIcon}
-                        name="search"
-                        placeholder="Search artwork"
-                        resetField={() => resetField('search')}
-                        className="font-small w-4/5 text-sm lg:w-5/6 lg:font-medium"
-                        inputClassName="!py-2.5 !rounded-r-none"
-                    />
-                    <Button
-                        variant="secondary"
-                        className="h-full w-1/5 !rounded-l-none border border-slate-300 !py-3 text-slate-900 hover:bg-slate-400"
-                        type="submit"
+                <div className="flex items-center justify-center gap-2 py-4 px-5 lg:px-20">
+                    <form
+                        className="flex w-full items-center gap-0"
+                        onSubmit={handleSubmit(onSubmit)}
                     >
-                        Search
-                    </Button>
+                        <TextField
+                            control={control}
+                            icon={MagnifyingGlassIcon}
+                            name="search"
+                            placeholder="Search artwork"
+                            resetField={() => resetField('search')}
+                            className="font-small w-4/5 text-sm lg:w-5/6 lg:font-medium"
+                            inputClassName="!py-2.5 !rounded-r-none"
+                        />
+                        <Button
+                            variant="secondary"
+                            className="h-full w-1/5 !rounded-l-none border border-slate-300 !py-3 text-slate-900 hover:bg-slate-400"
+                            type="submit"
+                        >
+                            Search
+                        </Button>
+                    </form>
                     <Dropdown
                         options={menuOptions}
                         className="lg:hidden"
-                        itemClassName="pr-10 text-xs font-small"
+                        itemClassName="text-xs font-small"
                         onClick={val => onClickDropdown(val)}
+                        currentItem={sortBy}
+                        activeClassName="!bg-slate-300"
                     >
                         <ChevronUpDownIcon className="h-7 w-7 text-slate-900 hover:text-white " />
                     </Dropdown>
-                </form>
+                </div>
 
-                <div className="flex w-full justify-between px-20 pt-1">
-                    <div className="hidden w-full items-center gap-5 lg:flex">
+                <div className="hidden w-full justify-between px-20 pt-1 lg:flex">
+                    <div className="flex w-full items-center gap-4">
                         {genreOptions.map((genreVal, index) => (
                             <button
                                 key={index}
@@ -119,7 +123,10 @@ const Home = () => {
                                         ? 'order-first bg-purple-700 !text-white'
                                         : ''
                                 )}
-                                onClick={() => setGenre(genreVal.value)}
+                                onClick={() => {
+                                    if (genre === genreVal.value) setGenre('');
+                                    else setGenre(genreVal.value);
+                                }}
                             >
                                 {genreVal.label}
                             </button>
@@ -148,7 +155,7 @@ const Home = () => {
                     </div>
                 </RenderIf>
                 <RenderIf when={data?.data?.length !== 0}>
-                    <div className="grid gap-x-4 gap-y-6 px-20 py-4 lg:w-full lg:grid-cols-4">
+                    <div className="grid gap-x-4 gap-y-6 px-6 py-4 lg:w-full lg:grid-cols-4 lg:px-20">
                         {data?.data?.map((val, index) => {
                             return (
                                 <CardArt
