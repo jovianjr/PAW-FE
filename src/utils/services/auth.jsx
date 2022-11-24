@@ -50,11 +50,26 @@ const signUp = async ({ username, email, password, confirmPassword, name }) => {
     return data;
 };
 
+const updatePassword = async ({
+    currentPassword,
+    newPassword,
+    confirmPassword
+}) => {
+    const { data } = await axios.patch(`/auth/update-password`, {
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+        confirmPassword: confirmPassword
+    });
+
+    return data;
+};
+
 export {
     activate,
     forgotPassword,
     login,
     resetPassword,
     resetPasswordCheck,
-    signUp
+    signUp,
+    updatePassword
 };
