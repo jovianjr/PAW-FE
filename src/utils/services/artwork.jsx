@@ -35,7 +35,29 @@ const newArtwork = async ({
         imgSrc: image,
         genre: genre
     });
+    return data;
 };
+
+const updateArtwork = async ({
+    id,
+    title,
+    description,
+    artist,
+    dateCreated,
+    image,
+    genre
+}) => {
+    const { data } = await axios.patch(`/artwork/${id}`, {
+        title: title,
+        description: description,
+        artist: artist,
+        date_created: dateCreated,
+        imgSrc: image,
+        genre: genre
+    });
+    return data;
+};
+
 const getListArt = async user_id => {
     const { data } = await axios.get(`/artwork?user_id=${user_id}`);
     return data;
@@ -74,6 +96,7 @@ const deleteArt = async id => {
 export {
     uploadFile,
     newArtwork,
+    updateArtwork,
     getListArt,
     searchByArtwork,
     getDetailArt,

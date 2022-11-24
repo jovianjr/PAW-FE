@@ -1,6 +1,6 @@
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
@@ -10,14 +10,17 @@ import MainLayout from '@/views/layouts/main-layout';
 import Modal from '@/views/components/modal';
 
 import { getDetailArt, deleteArt } from '@/utils/services/artwork';
+import RenderIf from '@/views/components/render-if';
+import { AuthContext } from '@/utils/context/auth';
 
 const ArtDetail = () => {
     const params = useParams();
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     const [deleteModal, setDeleteModal] = useState(false);
 
     const { data, isLoading, isFetching } = useQuery(
-        ['get-detail-art'],
+        ['get-detail-art', params.slug],
         () => getDetailArt(params.slug),
         {
             refetchOnWindowFocus: false,
@@ -61,15 +64,22 @@ const ArtDetail = () => {
             </Modal>
             <MainLayout className="lg:my-12 lg:px-40">
                 <div className="relative flex flex-col-reverse lg:flex-col">
-                    <div className="absolute right-0 top-0 hidden translate-x-full flex-col gap-4 px-4 lg:flex">
-                        <PencilSquareIcon className="h-12 w-12 cursor-pointer rounded-full p-3 transition-all hover:bg-slate-300" />
-                        <TrashIcon
-                            className="h-12 w-12 cursor-pointer rounded-full p-3 transition-all hover:bg-slate-300"
-                            onClick={() => setDeleteModal(true)}
-                        />
-                    </div>
+                    <RenderIf when={data?.data?.user_id?._id === user?._id}>
+                        <div className="absolute right-0 top-4 flex gap-4 px-4 lg:top-0 lg:flex lg:translate-x-full lg:flex-col lg:gap-4">
+                            <PencilSquareIcon
+                                className="h-5 w-5 cursor-pointer rounded-full transition-all hover:bg-slate-300 lg:h-12 lg:w-12 lg:p-3"
+                                onClick={() =>
+                                    navigate(`/art/${params.slug}/update`)
+                                }
+                            />
+                            <TrashIcon
+                                className="h-5 w-5 cursor-pointer rounded-full transition-all hover:bg-slate-300 lg:h-12 lg:w-12 lg:p-3"
+                                onClick={() => setDeleteModal(true)}
+                            />
+                        </div>
+                    </RenderIf>
                     <img
-                        className="aspect-[16/9] w-full rounded"
+                        className="aspect-[16/9] w-full rounded object-cover"
                         src={data?.data?.imgSrc}
                     />
                     <div className="flex items-center justify-between p-4 lg:mt-4 lg:p-0">
