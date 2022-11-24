@@ -42,7 +42,10 @@ const User = ({ username = null, isLoggedIn = false }) => {
 
     const { data, isLoading, isFetching } = useQuery(
         ['get-art-by-user', getUser.data?.data?.username],
-        () => getListArt(getUser.data?.data?._id),
+        () => {
+            if (getUser.data?.data) return getListArt(getUser.data?.data?._id);
+            return null;
+        },
         {
             refetchOnWindowFocus: false,
             refetchInterval: false,
