@@ -43,7 +43,7 @@ const InputSelect = ({
         if (!field.value) return null;
 
         if (isMulti)
-            options.filter(option => field.value.includes(option.value));
+            return options.filter(option => field.value.includes(option.value));
 
         return options.find(option => option.value === field.value);
     }, [field.value]);

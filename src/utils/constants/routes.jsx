@@ -1,18 +1,23 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
 
 import ErrorPage from '@/views/pages/error';
-import HomePage from '@/views/pages/home';
+
 import LoginPage from '@/views/pages/auth/login';
 import SignUpPage from '@/views/pages/auth/signup';
 import ForgotPasswordPage from '@/views/pages/auth/forgot-password';
 import ResetPasswordPage from '@/views/pages/auth/reset-password';
 import Activate from '@/views/pages/auth/activate';
+
+import HomePage from '@/views/pages/home';
+import SearchPage from '@/views/pages/search';
+
 import UserPage from '@/views/pages/user';
 import ProfilePage from '@/views/pages/profile';
 import ProfileSettingsPage from '@/views/pages/profile/settings';
+
 import ArtDetailPage from '@/views/pages/art/detail';
 import ArtNewPage from '@/views/pages/art/new';
-import SearchPage from '@/views/pages/search';
+import ArtUpdatePage from '@/views/pages/art/update';
 
 import { getUser } from '@/utils/services/user';
 
@@ -119,10 +124,18 @@ const routes = createBrowserRouter([
         },
         errorElement: <ErrorPage />
     },
-    ,
     {
         path: '/art/:slug',
         element: <ArtDetailPage />
+    },
+    {
+        path: '/art/:slug/update',
+        loader: async () => {
+            const response = await checkUser();
+            if (response === 'unauthorized') return redirect('/login');
+            return response;
+        },
+        element: <ArtUpdatePage />
     },
     {
         path: '/search',
