@@ -69,7 +69,13 @@ const Navbar = ({ search = true }) => {
     return (
         <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-slate-300 bg-white py-4 pl-4 lg:px-6">
             <Link to="/">
-                <h1 className="text-base font-black lg:text-lg">PAW</h1>
+                <div className="logo auto-cols-1fr grid grid-flow-col items-center gap-2 ">
+                    <img
+                        className="aspect-square w-8 sm:w-6"
+                        src="/images/logo.png"
+                    ></img>
+                    <h1 className="text-base font-black lg:text-lg">PAW</h1>
+                </div>
             </Link>
             <RenderIf when={!!search}>
                 <form className="w-1/2" onSubmit={handleSubmit(onSubmitSearch)}>
