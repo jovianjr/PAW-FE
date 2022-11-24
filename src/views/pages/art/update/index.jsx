@@ -130,7 +130,7 @@ const ArtUpdate = () => {
                     className="flex h-full w-full flex-col items-center justify-center"
                 >
                     <div className="flex h-full w-full flex-col items-center gap-14 lg:w-max lg:flex-row">
-                        <div className="relative flex aspect-square w-full gap-4 rounded border border-slate-300 bg-slate-200 lg:h-[50vh]">
+                        <div className="relative flex aspect-square w-full gap-4 rounded border border-slate-300 bg-slate-200 lg:h-[60vh]">
                             <Transition
                                 show={
                                     !!imageUploadMutation.isLoading ||
@@ -200,7 +200,7 @@ const ArtUpdate = () => {
                                 </label>
                             </RenderIf>
                         </div>
-                        <div className="flex h-full w-full flex-col justify-between gap-4 lg:h-[50vh]">
+                        <div className="flex h-full w-full flex-col justify-between gap-4 overflow-y-auto overflow-x-hidden lg:h-[60vh] lg:max-h-[60vh]">
                             <div className="flex flex-col gap-4">
                                 <TextField
                                     control={control}
