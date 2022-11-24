@@ -66,7 +66,12 @@ const ArtDetail = () => {
                 <div className="relative flex flex-col-reverse lg:flex-col">
                     <RenderIf when={data?.data?.user_id?._id === user?._id}>
                         <div className="absolute right-0 top-4 flex gap-4 px-4 lg:top-0 lg:flex lg:translate-x-full lg:flex-col lg:gap-4">
-                            <PencilSquareIcon className="h-5 w-5 cursor-pointer rounded-full transition-all hover:bg-slate-300 lg:h-12 lg:w-12 lg:p-3" />
+                            <PencilSquareIcon
+                                className="h-5 w-5 cursor-pointer rounded-full transition-all hover:bg-slate-300 lg:h-12 lg:w-12 lg:p-3"
+                                onClick={() =>
+                                    navigate(`/art/${params.slug}/update`)
+                                }
+                            />
                             <TrashIcon
                                 className="h-5 w-5 cursor-pointer rounded-full transition-all hover:bg-slate-300 lg:h-12 lg:w-12 lg:p-3"
                                 onClick={() => setDeleteModal(true)}
@@ -74,7 +79,7 @@ const ArtDetail = () => {
                         </div>
                     </RenderIf>
                     <img
-                        className="aspect-[16/9] w-full rounded"
+                        className="aspect-[16/9] w-full rounded object-cover"
                         src={data?.data?.imgSrc}
                     />
                     <div className="flex items-center justify-between p-4 lg:mt-4 lg:p-0">

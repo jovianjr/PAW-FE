@@ -18,7 +18,11 @@ import Select from '@/views/elements/select';
 
 import MainLayout from '@/views/layouts/main-layout';
 import genreOptions from '@/utils/constants/options/genre';
-import { uploadFile, getDetailArt, newArtwork } from '@/utils/services/artwork';
+import {
+    uploadFile,
+    getDetailArt,
+    updateArtwork
+} from '@/utils/services/artwork';
 
 const ArtUpdate = () => {
     const navigate = useNavigate();
@@ -78,10 +82,10 @@ const ArtUpdate = () => {
         }
     });
 
-    const updateMutation = useMutation(data => newArtwork(data), {
+    const updateMutation = useMutation(data => updateArtwork(data), {
         onSuccess: res => {
-            announce.success('artwork has been created succesfully');
-            navigate('/');
+            announce.success('artwork has been updated succesfully');
+            navigate(`/art/${params.slug}`);
         },
         onError: err => {
             if (err.response) {
@@ -91,16 +95,17 @@ const ArtUpdate = () => {
         }
     });
 
-    const onSubmit = data => {
-        console.log(data);
-        // updateMutation.mutateAsync({
-        //     title: data.title,
-        //     description: data.description,
-        //     artist: data.artist,
-        //     dateCreation: data.dateCreation,
-        //     image: image,
-        //     genre: data.genre
-        // });
+    const onSubmit = e => {
+        // console.log(data);
+        updateMutation.mutateAsync({
+            id: data?.data?._id,
+            title: e.title,
+            description: e.description,
+            artist: e.artist,
+            dateCreation: e.dateCreation,
+            image: image,
+            genre: e.genre
+        });
     };
 
     return (
@@ -112,7 +117,7 @@ const ArtUpdate = () => {
 
             <LoadingScreen
                 when={updateMutation.isLoading}
-                text="Submitting Artwork"
+                text="Updating Artwork"
             />
 
             <MainLayout
@@ -260,9 +265,14 @@ const ArtUpdate = () => {
                                 </RenderIf>
                                 <Button
                                     type="submit"
-                                    disabled={!isDirty || !isValid || !image}
+                                    disabled={
+                                        (!isDirty &&
+                                            image === data?.data?.imgSrc) ||
+                                        !isValid ||
+                                        !image
+                                    }
                                 >
-                                    Finish & Upload
+                                    Finish & Update
                                 </Button>
                             </div>
                         </div>
