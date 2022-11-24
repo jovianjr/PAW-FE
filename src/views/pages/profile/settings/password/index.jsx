@@ -1,57 +1,95 @@
-import { Cog6ToothIcon, BanknotesIcon } from '@heroicons/react/24/solid';
-import { useParams } from 'react-router-dom';
-import Button from '@/views/elements/button';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+
+import announce from '@/views/components/announcement';
+import LoadingScreen from '@/views/components/loading';
+
+import Button from '@/views/elements/button';
 import TextField from '@/views/elements/text-field';
-import MainLayout from '@/views/layouts/main-layout';
+
+import { updatePassword } from '@/utils/services/auth';
+
 const User = () => {
+    const navigate = useNavigate();
     const params = useParams();
-    const {
-        control,
-        handleSubmit,
-        reset,
-        formState: { isDirty, isValid }
-    } = useForm({
+    const { control, reset, handleSubmit } = useForm({
         defaultValues: {
-            title: '',
-            description: ''
+            currentPassword: '',
+            newPassword: '',
+            confirmPassword: ''
         }
     });
 
+    const updatePasswordMutation = useMutation(data => updatePassword(data), {
+        onSuccess: res => {
+            announce.success('password has been updated succesfully');
+            navigate(`/profile`);
+        },
+        onError: err => {
+            if (err.response) {
+                const { data } = err.response;
+                announce.error(data.errors);
+            } else console.log(err);
+        }
+    });
+
+    const onSubmit = e => {
+        // console.log(data);
+        updatePasswordMutation.mutateAsync({
+            currentPassword: e.currentPassword,
+            newPassword: e.newPassword,
+            confirmPassword: e.confirmPassword
+        });
+    };
+
     return (
         <div className="h-full">
+            <LoadingScreen
+                when={updatePasswordMutation.isLoading}
+                text="Updating Profile"
+            />
             <h1 className="text-2xl font-semibold">Password</h1>
 
-            <div className="flex h-full max-h-[75vh] flex-col gap-9 overflow-y-auto py-6">
+            <form
+                className="flex h-full max-h-[75vh] flex-col gap-9 overflow-y-auto py-6"
+                onSubmit={handleSubmit(onSubmit)}
+            >
                 <Row
                     control={control}
-                    name="current_password"
+                    name="currentPassword"
                     fieldName="Current Password"
                     placeholder="current password"
                 />
 
                 <Row
                     control={control}
-                    name="new_password"
+                    name="newPassword"
                     fieldName="New Password"
                     placeholder="new password"
                 />
 
                 <Row
                     control={control}
-                    name="confirm_password"
+                    name="confirmPassword"
                     fieldName="Confirm Password"
                     placeholder="confirm password"
                 />
 
                 <div className="flex w-full items-center gap-10">
-                    <Button className="!px-10">Update</Button>
+                    <Button className="!px-10" type="submit">
+                        Update
+                    </Button>
 
-                    <button type="button" className="text-slate-500">
+                    <button
+                        type="button"
+                        className="text-slate-500"
+                        onClick={() => reset()}
+                    >
                         Reset
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     );
 };
@@ -68,6 +106,7 @@ const Row = ({ control, name, fieldName, placeholder, textarea = false }) => {
                     name={name}
                     fieldName={fieldName}
                     placeholder={placeholder}
+                    type="password"
                     className="w-full lg:w-2/3"
                     inputClassName="border-none !text-sm"
                     rules={{ required: true }}
