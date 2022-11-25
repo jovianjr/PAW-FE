@@ -62,10 +62,10 @@ const ArtDetail = () => {
             >
                 Are you sure to delete this artwork?
             </Modal>
-            <MainLayout className="lg:my-12 lg:px-40">
+            <MainLayout className="min-h-screen lg:my-12 lg:px-40">
                 <div className="relative flex flex-col-reverse lg:flex-col">
                     <RenderIf when={data?.data?.user_id?._id === user?._id}>
-                        <div className="absolute right-0 top-4 flex gap-4 px-4 lg:top-0 lg:flex lg:translate-x-full lg:flex-col lg:gap-4">
+                        <div className="absolute right-0 top-5 flex gap-4 px-4 lg:top-0 lg:flex lg:translate-x-full lg:flex-col lg:gap-4">
                             <PencilSquareIcon
                                 className="h-5 w-5 cursor-pointer rounded-full transition-all hover:bg-slate-300 lg:h-12 lg:w-12 lg:p-3"
                                 onClick={() =>
@@ -83,37 +83,74 @@ const ArtDetail = () => {
                         src={data?.data?.imgSrc}
                     />
                     <div className="flex items-center justify-between p-4 lg:mt-4 lg:p-0">
-                        <div className="flex gap-2">
+                        <div className="flex items-center gap-2">
                             <img
                                 className="aspect-square w-8 rounded-full object-cover lg:w-14"
                                 src={data?.data?.user_id?.image}
                             />
                             <span className="flex flex-col">
-                                <p className="text-xs font-bold lg:text-2xl lg:font-semibold">
-                                    {data?.data?.title}
-                                </p>
+                                <div className="hidden items-center gap-2 lg:flex">
+                                    <p className="text-xs font-bold lg:text-2xl lg:font-semibold">
+                                        {data?.data?.title}
+                                    </p>
+                                    {data?.data?.genre.map((genre, index) => {
+                                        return (
+                                            <p
+                                                key={index}
+                                                className="hidden rounded-md bg-purple-300 py-1 px-2 text-xs lg:block"
+                                            >
+                                                {genre}
+                                            </p>
+                                        );
+                                    })}
+                                </div>
                                 <Link
                                     to="/johndoe"
-                                    className="cursor-pointer text-xs hover:underline lg:text-base"
+                                    className="cursor-pointer text-sm font-semibold hover:underline lg:text-base lg:font-normal"
                                 >
-                                    {data?.data?.artist}
+                                    {data?.data?.user_id?.name}
                                 </Link>
                             </span>
                         </div>
-                        <p className="hidden text-base lg:block">
-                            {moment
-                                .utc(data?.data?.date_created)
-                                .format('DD MMMM YYYY')}
-                        </p>
+                        <div className="hidden flex-col items-end justify-center lg:flex">
+                            <p className="text-base">
+                                {moment
+                                    .utc(data?.data?.date_created)
+                                    .format('DD MMMM YYYY')}
+                            </p>
+                            <p className="pb-1 text-xs text-neutral-500 lg:text-sm">
+                                {' '}
+                                by {data?.data?.artist}
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div className="px-6 py-8 lg:p-0">
                     <div className="flex flex-col lg:hidden">
                         <p className="text-xs text-slate-500">
-                            {data?.data?.date_created}
+                            {moment
+                                .utc(data?.data?.date_created)
+                                .format('DD MMMM YYYY')}
                         </p>
-                        <p className="text-base font-semibold">
-                            {data?.data?.title}
+                        <div className="flex max-w-full flex-wrap items-center gap-2 overflow-auto">
+                            <p className="text-base font-semibold">
+                                {data?.data?.title}
+                            </p>
+
+                            {data?.data?.genre.map((genre, index) => {
+                                return (
+                                    <p
+                                        key={index}
+                                        className="rounded bg-purple-300 py-0.5 px-2 text-xs lg:hidden"
+                                    >
+                                        {genre}
+                                    </p>
+                                );
+                            })}
+                        </div>
+                        <p className="pt-2 text-xs text-neutral-500 lg:text-sm">
+                            {' '}
+                            by {data?.data?.artist}
                         </p>
                     </div>
                     <p className="mt-4 text-justify text-base">
