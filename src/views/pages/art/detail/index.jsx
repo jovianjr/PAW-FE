@@ -62,10 +62,10 @@ const ArtDetail = () => {
             >
                 Are you sure to delete this artwork?
             </Modal>
-            <MainLayout className="lg:my-12 lg:px-40">
+            <MainLayout className="min-h-screen lg:my-12 lg:px-40">
                 <div className="relative flex flex-col-reverse lg:flex-col">
                     <RenderIf when={data?.data?.user_id?._id === user?._id}>
-                        <div className="absolute right-0 top-4 flex gap-4 px-4 lg:top-0 lg:flex lg:translate-x-full lg:flex-col lg:gap-4">
+                        <div className="absolute right-0 top-5 flex gap-4 px-4 lg:top-0 lg:flex lg:translate-x-full lg:flex-col lg:gap-4">
                             <PencilSquareIcon
                                 className="h-5 w-5 cursor-pointer rounded-full transition-all hover:bg-slate-300 lg:h-12 lg:w-12 lg:p-3"
                                 onClick={() =>
@@ -83,13 +83,13 @@ const ArtDetail = () => {
                         src={data?.data?.imgSrc}
                     />
                     <div className="flex items-center justify-between p-4 lg:mt-4 lg:p-0">
-                        <div className="flex gap-2">
+                        <div className="flex items-center gap-2">
                             <img
                                 className="aspect-square w-8 rounded-full object-cover lg:w-14"
                                 src={data?.data?.user_id?.image}
                             />
                             <span className="flex flex-col">
-                                <div className="flex items-center gap-2">
+                                <div className="hidden items-center gap-2 lg:flex">
                                     <p className="text-xs font-bold lg:text-2xl lg:font-semibold">
                                         {data?.data?.title}
                                     </p>
@@ -106,7 +106,7 @@ const ArtDetail = () => {
                                 </div>
                                 <Link
                                     to="/johndoe"
-                                    className="cursor-pointer text-xs hover:underline lg:text-base"
+                                    className="cursor-pointer text-sm font-semibold hover:underline lg:text-base lg:font-normal"
                                 >
                                     {data?.data?.user_id?.name}
                                 </Link>
