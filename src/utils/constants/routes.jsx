@@ -19,7 +19,7 @@ import ArtDetailPage from '@/views/pages/art/detail';
 import ArtNewPage from '@/views/pages/art/new';
 import ArtUpdatePage from '@/views/pages/art/update';
 
-import { getUser } from '@/utils/services/user';
+import { getUser, getUserByUsername } from '@/utils/services/user';
 
 const checkUser = async () => {
     try {
@@ -88,7 +88,14 @@ const routes = createBrowserRouter([
     {
         path: '/:username',
         element: <UserPage />,
-        errorElement: <ErrorPage />
+        errorElement: <ErrorPage />,
+        loader: async ({ params }) => {
+            const data = await getUserByUsername(params.username);
+            if (!data.data) {
+                throw 404;
+            }
+            return data;
+        }
     },
     {
         path: '/profile',
