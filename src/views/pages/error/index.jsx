@@ -6,7 +6,7 @@ const ErrorBoundary = () => {
     let error = useRouteError();
     return (
         <MainLayout>
-            {error.status === 404 ? (
+            {error.status === 404 || error === 404 ? (
                 <StatusResult
                     type="warning"
                     title="404"
