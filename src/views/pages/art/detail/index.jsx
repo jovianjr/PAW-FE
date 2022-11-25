@@ -89,31 +89,68 @@ const ArtDetail = () => {
                                 src={data?.data?.user_id?.image}
                             />
                             <span className="flex flex-col">
-                                <p className="text-xs font-bold lg:text-2xl lg:font-semibold">
-                                    {data?.data?.title}
-                                </p>
+                                <div className="flex items-center gap-2">
+                                    <p className="text-xs font-bold lg:text-2xl lg:font-semibold">
+                                        {data?.data?.title}
+                                    </p>
+                                    {data?.data?.genre.map((genre, index) => {
+                                        return (
+                                            <p
+                                                key={index}
+                                                className="hidden rounded-md bg-purple-300 py-1 px-2 text-xs lg:block"
+                                            >
+                                                {genre}
+                                            </p>
+                                        );
+                                    })}
+                                </div>
                                 <Link
                                     to="/johndoe"
                                     className="cursor-pointer text-xs hover:underline lg:text-base"
                                 >
-                                    {data?.data?.artist}
+                                    {data?.data?.user_id?.name}
                                 </Link>
                             </span>
                         </div>
-                        <p className="hidden text-base lg:block">
-                            {moment
-                                .utc(data?.data?.date_created)
-                                .format('DD MMMM YYYY')}
-                        </p>
+                        <div className="hidden flex-col items-end justify-center lg:flex">
+                            <p className="text-base">
+                                {moment
+                                    .utc(data?.data?.date_created)
+                                    .format('DD MMMM YYYY')}
+                            </p>
+                            <p className="pb-1 text-xs text-neutral-500 lg:text-sm">
+                                {' '}
+                                by {data?.data?.artist}
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div className="px-6 py-8 lg:p-0">
                     <div className="flex flex-col lg:hidden">
                         <p className="text-xs text-slate-500">
-                            {data?.data?.date_created}
+                            {moment
+                                .utc(data?.data?.date_created)
+                                .format('DD MMMM YYYY')}
                         </p>
-                        <p className="text-base font-semibold">
-                            {data?.data?.title}
+                        <div className="flex max-w-full flex-wrap items-center gap-2 overflow-auto">
+                            <p className="text-base font-semibold">
+                                {data?.data?.title}
+                            </p>
+
+                            {data?.data?.genre.map((genre, index) => {
+                                return (
+                                    <p
+                                        key={index}
+                                        className="rounded bg-purple-300 py-0.5 px-2 text-xs lg:hidden"
+                                    >
+                                        {genre}
+                                    </p>
+                                );
+                            })}
+                        </div>
+                        <p className="pt-2 text-xs text-neutral-500 lg:text-sm">
+                            {' '}
+                            by {data?.data?.artist}
                         </p>
                     </div>
                     <p className="mt-4 text-justify text-base">

@@ -34,7 +34,7 @@ const CardArt = ({
                 </div>
             </Link>
 
-            <div className="flex w-full items-center justify-between pt-1 text-sm">
+            <div className="flex w-full items-center justify-between gap-2 pt-1 text-sm">
                 <div>
                     <h3 className="text-sm font-semibold">{title}</h3>
                     <Link
@@ -44,7 +44,7 @@ const CardArt = ({
                         {name}
                     </Link>
                 </div>
-                <p className="text-xs text-slate-500">
+                <p className="text-right text-xs text-slate-500">
                     {moment.utc(date_created).format('DD MMMM YYYY')}
                 </p>
             </div>
