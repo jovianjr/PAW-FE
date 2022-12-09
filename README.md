@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/55451337/206634209-fe22de49-b33e-4409-817a-a13a7a758eae.png"  />
+</div>
+
 <h1 align="center">
   PAW: Pieces of ArtWork
 </h1>
@@ -17,6 +21,12 @@ PAW merupakan salah satu website online exhibitions untuk menampilkan berbagai k
 
 - [Frontend Repo](https://github.com/jovianjr/paw-fe) (current)
 - [Backend Repo](https://github.com/jovianjr/paw-be)
+
+## Link
+
+- Slide Presentasi: [Click Here](https://drive.google.com/file/d/1iuDOZVfSfXaGQxV6K9a6XrXHfUT4u28T/view?usp=sharing)
+- Front End: https://pieces-of-artwork.netlify.app
+- Back End: https://api-pieces-of-artwork.vercel.app
 
 ## Directories
 
