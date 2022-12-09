@@ -51,6 +51,7 @@ PAW merupakan salah satu website online exhibitions untuk menampilkan berbagai k
         └── main.jsx
 
 ## How to use
+Don't forget to fill the .env files
 
 ### npm
 
