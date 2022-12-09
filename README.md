@@ -27,6 +27,7 @@ PAW merupakan salah satu website online exhibitions untuk menampilkan berbagai k
 - Slide Presentasi: [Click Here](https://drive.google.com/file/d/1iuDOZVfSfXaGQxV6K9a6XrXHfUT4u28T/view?usp=sharing)
 - Front End: https://pieces-of-artwork.netlify.app
 - Back End: https://api-pieces-of-artwork.vercel.app
+- Prototype: [Click Here](https://www.figma.com/proto/8EclelnGlZwJtwyJGmGHlh/PAW?page-id=151%3A174&node-id=215%3A1568&starting-point-node-id=215%3A1568) 
 
 ## Directories
 
