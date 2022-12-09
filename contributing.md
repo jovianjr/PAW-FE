@@ -3,7 +3,7 @@
 ## Main Branch
 
 - `development`: development, “integration branch”
-- `prod`: production-ready state
+- `production`: production-ready state
 
 ## Supporting Branch
 
