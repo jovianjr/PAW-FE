@@ -24,10 +24,16 @@ PAW merupakan salah satu website online exhibitions untuk menampilkan berbagai k
     ├── public                # static files (public can access)
     └── src
         ├── assets              # assets
-        ├── utils               # utilities
+        ├── utils               
+        │   |                   # all about logic
+        │   ├── constants       # constant values
+        │   ├── context         # context, shared state
+        │   ├── helpers         # helper functions
+        │   └── services        # services (request api)
         ├── views
         │   |                   # all about UI
         │   ├── components      # collection of UI components
+        │   ├── elements        # smallest UI thing
         │   ├── layouts         # UI Layout
         │   ├── pages           # pages
         │   └── styles          # css files
